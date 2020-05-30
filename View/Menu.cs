@@ -22,7 +22,6 @@ namespace Widok
         /// </summary>
         static void RysujGl()
         {
-            Console.Clear();
             Console.WriteLine("\n");
             for (int i = 0; i < opcjeMenu.Length; i++)
             {
@@ -63,16 +62,20 @@ namespace Widok
                         switch (wybranaGl)
                         {
                             case 0:
+                                Console.Clear();
                                 MainStart();
                                 break;
                             case 1:
+                                Console.Clear();
                                 MainOpcje();
                                 break;
                             case 2:
+                                Console.Clear();
                                 return;
                         }
                         break;
                     case ConsoleKey.Q:
+                        Console.Clear();
                         return;
                 }
                 RysujGl();
@@ -95,7 +98,6 @@ namespace Widok
         /// </summary>
         static void RysujOpcje()
         {
-            Console.Clear();
             Console.WriteLine("\n");
             for (int i = 0; i < opcje.Length; i++)
             {
@@ -132,6 +134,7 @@ namespace Widok
                         wybranaOpcji = (wybranaOpcji >= opcje.Length) ? 0 : wybranaOpcji;
                         break;
                     case ConsoleKey.Q:
+                        Console.Clear();
                         return;
                     case ConsoleKey.LeftArrow:
                         opcje[wybranaOpcji]--;
@@ -157,7 +160,6 @@ namespace Widok
         /// </summary>
         static void RysujStart()
         {
-            Console.Clear();
             Console.WriteLine("\n");
             for (int i = 0; i < opcjeStart.Length; i++)
             {
@@ -194,6 +196,7 @@ namespace Widok
                         wybranaStart = (wybranaStart >= opcjeStart.Length) ? 0 : wybranaStart;
                         break;
                     case ConsoleKey.Q:
+                        Console.Clear();
                         return;
                 }
                 RysujStart();

@@ -1,12 +1,14 @@
-﻿using System;
+﻿using ChessLogic;
+using Logika;
+using System;
 using System.Collections.Generic;
 
 namespace Widok
 {
     /// <summary>
-    /// Menu główne sterowanie i widok
+    /// sterowanie i widok
     /// </summary>
-    public static class Menu
+    public static partial class Menu
     {
         //część menu głównego
         /// <summary>
@@ -195,6 +197,20 @@ namespace Widok
                         wybranaStart++;
                         wybranaStart = (wybranaStart >= opcjeStart.Length) ? 0 : wybranaStart;
                         break;
+                    case ConsoleKey.Enter:
+                        switch (wybranaStart)
+                        {
+                            case 0:
+                                MainGry(true, false);
+                                break;
+                            case 1:
+                                MainGry();
+                                break;
+                            case 2:
+                                MainGry(false);
+                                break;
+                        }
+                        break;
                     case ConsoleKey.Q:
                         Console.Clear();
                         return;
@@ -202,7 +218,257 @@ namespace Widok
                 RysujStart();
             }
         }
-        //część sterowania grą
+        //czesc dotycząca rysowania i sterowania grą
+        /// <summary>
+        /// Rysuje plansze do gry
+        /// </summary>
+        static void RysujPlansze()
+        {
+            Console.Clear();
+            //wysokosc
+            for (int i = 0; i < PlanszaWielkosc; i++)
+            {
+                //szerokosc
+                for (int j = 0; j < PlanszaWielkosc; j++)
+                {
+                    //pojedyncze pole
+                    RysujPole(new Punkt(j, i));
+                }
+            }
+        }
+        /// <summary>
+        /// rysuje pojedyncze pole
+        /// </summary>
+        static void RysujPole(Punkt punktDoRysowania)
+        {
+            //obliczenie odstepu na osi x
+            int margines = (Console.WindowWidth - (PoleSzerokosc * PlanszaWielkosc)) / 2;
+
+            if (punktDoRysowania == kursorPozycja)
+                Console.BackgroundColor = ConsoleColor.Blue;
+            else if (punktDoRysowania == zaznaczenie)
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+            else if (mozliweRuchy.Contains(punktDoRysowania))
+                Console.BackgroundColor = ConsoleColor.Red;
+            else if (punktDoRysowania.XplusY % 2 == 0)
+                Console.BackgroundColor = ConsoleColor.Green;
+            else
+                Console.BackgroundColor = ConsoleColor.White;
+
+
+            //wysokosc pola
+            for (int i = 0; i < PoleWysokosc; i++)
+            {
+                Console.CursorTop = i + (punktDoRysowania.Y * PoleWysokosc) + 2;
+                Console.CursorLeft = margines + (punktDoRysowania.X * PoleSzerokosc);
+                //szerokosc pola
+                for (int j = 0; j < PoleSzerokosc; j++)
+                {
+                    Console.Write(' ');
+                }
+            }
+            Console.ResetColor();
+        }
+        /// <summary>
+        /// sterowanie grą
+        /// </summary>
+        static void MainGry(bool side = true, bool bot = true)
+        {
+            //inicjalizuje plansze
+            plansza = new Plansza(PromocjaPionka, KoniecGry);
+            gra = true;
+            //przygotowanie
+            /*tu kiedyś będzie kod*/
+            //rysowanie
+            RysujPlansze();
+            //działanie
+            while (gra)
+            {
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            Punkt staraPozycja = kursorPozycja;
+                            kursorPozycja = new Punkt(staraPozycja.X, staraPozycja.Y - 1);
+                            if (!kursorPozycja.Pomiedzy(7))
+                                kursorPozycja = staraPozycja;
+                            RysujPole(staraPozycja);
+                            RysujPole(kursorPozycja);
+                            break;
+                        }
+                    case ConsoleKey.DownArrow:
+                        {
+                            Punkt staraPozycja = kursorPozycja;
+                            kursorPozycja = new Punkt(staraPozycja.X, staraPozycja.Y + 1);
+                            if (!kursorPozycja.Pomiedzy(7))
+                                kursorPozycja = staraPozycja;
+                            RysujPole(staraPozycja);
+                            RysujPole(kursorPozycja);
+                            break;
+                        }
+                    case ConsoleKey.LeftArrow:
+                        {
+                            Punkt staraPozycja = kursorPozycja;
+                            kursorPozycja = new Punkt(staraPozycja.X - 1, staraPozycja.Y);
+                            if (!kursorPozycja.Pomiedzy(7))
+                                kursorPozycja = staraPozycja;
+                            RysujPole(staraPozycja);
+                            RysujPole(kursorPozycja);
+                            break;
+                        }
+                    case ConsoleKey.RightArrow:
+                        {
+                            Punkt staraPozycja = kursorPozycja;
+                            kursorPozycja = new Punkt(staraPozycja.X + 1, staraPozycja.Y);
+                            if (!kursorPozycja.Pomiedzy(7))
+                                kursorPozycja = staraPozycja;
+                            RysujPole(staraPozycja);
+                            RysujPole(kursorPozycja);
+                            break;
+                        }
+                    case ConsoleKey.Enter:
+                        break;
+                    case ConsoleKey.Q:
+                        Console.Clear();
+                        return;
+                }
+                Console.CursorLeft = 0;
+                Console.CursorTop = 0;
+            }
+        }
+        /// <summary>
+        /// plansza na której się gra
+        /// </summary>
+        static Plansza plansza;
+        /// <summary>
+        /// jeżeli gra == true gra jest w trakcie
+        /// </summary>
+        static bool gra;
+        static bool PrezentacjaGryZaPomocaSyboli
+        {
+            get
+            {
+                switch (opcje[1].stan)
+                {
+                    case "litery":
+                        return false;
+                    default:
+                        return true;
+                }
+            }
+        }
+        /// <summary>
+        /// Zwraca szrokosc pojedynczego pola dla wybranej opcji
+        /// </summary>
+        static int PoleSzerokosc
+        {
+            get
+            {
+                switch (opcje[0].stan)
+                {
+                    case "mały":
+                        if (PrezentacjaGryZaPomocaSyboli)
+                            return 2;
+                        return 1;
+                    case "średni":
+                        if (PrezentacjaGryZaPomocaSyboli)
+                            return 4;
+                        return 3;
+                    default:
+                        if (PrezentacjaGryZaPomocaSyboli)
+                            return 6;
+                        return 5;
+                }
+            }
+        }
+        /// <summary>
+        /// Zwraca szrokosc wysokość pola dla wybranej opcji
+        /// </summary>
+        static int PoleWysokosc
+        {
+            get
+            {
+                switch (opcje[0].stan)
+                {
+                    case "mały":
+                        return 1;
+                    case "średni":
+                        return 3;
+                    default:
+                        return 5;
+                }
+            }
+        }
+        /// <summary>
+        /// ilosc pol na planszy w jednej osi
+        /// </summary>
+        const int PlanszaWielkosc = 8;
+        /// <summary>
+        /// aktyualna pozycja kursora na planszy
+        /// </summary>
+        static Punkt kursorPozycja = new Punkt(4, 6);
+        /// <summary>
+        /// lista możliwych ruchów do wykonania przez zaznaczoną bierke
+        /// </summary>
+        static List<Punkt> mozliweRuchy = new List<Punkt>();
+        /// <summary>
+        /// aktualnie zaznaczona bierka;
+        /// </summary>
+        static Punkt zaznaczenie = new Punkt(-1, -1);
+        /// <summary>
+        /// zwraca zapisany w formie stringa wyglad bierki
+        /// </summary>
+        /// <param name="bierka">rodzaj bierki do wyswietlenia</param>
+        /// <returns>string z bierka</returns>
+        static string PrezentacjaBierki(Bierki bierka)
+        {
+            if (opcje[1].stan == "symbole")
+            {
+                return bierkiPrezentacjaSymbole[bierka];
+            }
+            else
+            {
+                return bierkiPrezentacjaLitery[bierka];
+            }
+        }
+        /// <summary>
+        /// prezentacja bierek za pomocą liter
+        /// </summary>
+        static Dictionary<Bierki, string> bierkiPrezentacjaLitery = new Dictionary<Bierki, string>
+        {
+            { Bierki.Krol, "K" },
+            { Bierki.Hetman, "H"},
+            { Bierki.Wieża, "W"},
+            { Bierki.Goniec, "G"},
+            { Bierki.Skoczek, "S"},
+            { Bierki.Pionek, "P"}
+        };
+        /// <summary>
+        /// prezentacja bierek za pomocą symboli
+        /// </summary>
+        static Dictionary<Bierki, string> bierkiPrezentacjaSymbole = new Dictionary<Bierki, string>
+        {
+            { Bierki.Krol, "♚" },
+            { Bierki.Hetman, "♛"},
+            { Bierki.Wieża, "♜"},
+            { Bierki.Goniec, "♝"},
+            { Bierki.Skoczek, "♞"},
+            { Bierki.Pionek, "♟"}
+        };
+        //czesc dotyczaca wydarzeń w grze
+        /// <summary>
+        /// funkcja do wyboru bierki
+        /// </summary>
+        /// <returns>zwraca rodzaj bierki do promocji</returns>
+        static Bierki PromocjaPionka()
+        {
+            return Bierki.Hetman;
+        }
+        static void KoniecGry(Plansza.Status statusGry)
+        {
+            gra = false;
+            return;
+        }
     }
     /// <summary>
     /// przechowuje opcje do wyswietlenia w menuOpcji

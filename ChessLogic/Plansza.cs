@@ -41,12 +41,12 @@ namespace ChessLogic
         /// <summary>
         /// Funkcja wołana w momencie zakończenia gry
         /// </summary>
-        readonly Func<Status, object> koniecGry;
+        readonly Action<Status> koniecGry;
         /// <summary>
         /// Konstruktor tworzący planszę do gry
         /// </summary>
         public IReadOnlyList<Bierka> Bierki => bierki.AsReadOnly();
-        public Plansza(Func<Bierki> promocjaPionka, Func<Status, object> koniecGry, bool init = true)
+        public Plansza(Func<Bierki> promocjaPionka, Action<Status> koniecGry, bool init = true)
         {
             this.promocjaPionka = promocjaPionka;
             this.koniecGry = koniecGry;

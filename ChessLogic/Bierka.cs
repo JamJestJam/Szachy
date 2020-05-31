@@ -22,7 +22,7 @@ namespace Logika
         /// <summary>
         /// Nazwa bierki
         /// </summary>
-        public string Nazwa { get; private set; }
+        public Bierki Nazwa { get; private set; }
         /// <summary>
         /// Strona po której gra bierka
         /// </summary>

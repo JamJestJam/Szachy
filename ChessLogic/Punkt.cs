@@ -44,13 +44,22 @@ namespace Logika
         /// <param name="max">max</param>
         /// <param name="min">min</param>
         /// <returns>Zwraca prawda jeżeli koordynaty znajdują się pomiędzy min i max</returns>
-        public bool Pomiedzy(int max, int min)
+        public bool Pomiedzy(int min, int max)
         {
             if (X > max || X < min)
                 return false;
             if (Y > max || Y < min)
                 return false;
             return true;
+        }
+        /// <summary>
+        /// Sprawdza czy koordynaty znajdują się pomiędzy 0 a max
+        /// </summary>
+        /// <param name="max">max</param>
+        /// <returns>Zwraca prawda jeżeli koordynaty znajdują się pomiędzy 0 a max</returns>
+        public bool Pomiedzy(int max)
+        {
+            return Pomiedzy(0, max);
         }
         /// <summary>
         /// Sprawdza czy dwa punkty mają takie same koordynaty

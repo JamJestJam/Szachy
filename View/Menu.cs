@@ -265,9 +265,13 @@ namespace Widok
                 //szerokosc pola
                 for (int j = 0; j < PoleSzerokosc; j++)
                 {
-                    if (i == PoleWysokosc / 2 && j == PolowaSzerokosci && plansza.BierkaNaPozycji(punktDoRysowania, out Bierki bierka))
+                    if (i == PoleWysokosc / 2 && j == PolowaSzerokosci && plansza.BierkaNaPozycji(punktDoRysowania, out Bierka bierka))
                     {
-                        Console.Write(PrezentacjaBierki(bierka));
+                        if (bierka.Kolor == Strona.Biała)
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        else
+                            Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write(PrezentacjaBierki(bierka.Nazwa));
                     }
                     else
                         Console.Write(' ');

@@ -156,15 +156,15 @@ namespace LogikaSzachy
                 }
             }
         }
-        public bool BierkaNaPozycji(Punkt pozycja, out LogikaSzachy.Bierki bierka)
+        public bool BierkaNaPozycji(Punkt pozycja, out Bierka bierka)
         {
             var tmp = (this.bierki.Find(x=>x.Pozycja==pozycja));
             if(tmp == null)
             {
-                bierka = 0;
+                bierka = null;
                 return false;
             }
-            bierka = tmp.Nazwa;
+            bierka = tmp;
             return true;
         }
     }

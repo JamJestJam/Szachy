@@ -1,4 +1,6 @@
-﻿namespace LogikaSzachy
+﻿using System.Collections.Generic;
+
+namespace LogikaSzachy
 {
     /// <summary>
     /// Lista wszystkich możliwych bierek
@@ -37,6 +39,20 @@
         /// pozycja na której znajduje się bierka
         /// </summary>
         public Punkt Pozycja { get; protected set; }
-
+        /// <summary>
+        /// tworzy liste możliwych do wykonania przez daną bierkę ruchów
+        /// </summary>
+        /// <returns>zwraca listę punktów na które bierka może się przemieścić</returns>
+        protected abstract List<Punkt> możliweRuchy();
+        /// <summary>
+        /// Lista możliwych punktów na które bierka może się przemiescić
+        /// </summary>
+        public IReadOnlyList<Punkt> MozliweRuchy
+        {
+            get
+            {
+                return możliweRuchy().AsReadOnly();
+            }
+        }
     }
 }

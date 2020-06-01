@@ -244,7 +244,7 @@ namespace Widok
         {
             //obliczenie odstepu na osi x
             int margines = (Console.WindowWidth - (PoleSzerokosc * PlanszaWielkosc)) / 2;
-
+            //ustalenie koloru tła
             if (punktDoRysowania == kursorPozycja)
                 Console.BackgroundColor = ConsoleColor.Blue;
             else if (punktDoRysowania == zaznaczenie)
@@ -255,8 +255,6 @@ namespace Widok
                 Console.BackgroundColor = ConsoleColor.Green;
             else
                 Console.BackgroundColor = ConsoleColor.White;
-
-
             //wysokosc pola
             for (int i = 0; i < PoleWysokosc; i++)
             {
@@ -265,12 +263,15 @@ namespace Widok
                 //szerokosc pola
                 for (int j = 0; j < PoleSzerokosc; j++)
                 {
+                    //sprawdzenie czy na danej pozycje istnieje bierka
                     if (i == PoleWysokosc / 2 && j == PolowaSzerokosci && plansza.BierkaNaPozycji(punktDoRysowania, out Bierka bierka))
                     {
+                        //jeżeli bierka istnieje to ustaw jej kolor
                         if (bierka.Kolor == Strona.Biała)
                             Console.ForegroundColor = ConsoleColor.Gray;
                         else
                             Console.ForegroundColor = ConsoleColor.Black;
+                        //narysuj bierke
                         Console.Write(PrezentacjaBierki(bierka.Nazwa));
                     }
                     else

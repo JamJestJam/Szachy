@@ -88,13 +88,28 @@ namespace LogikaSzachy
         /// <summary>
         /// Konstruktor tworzący planszę do gry
         /// </summary>
-        public Plansza(Func<Bierki> promocjaPionka, Action<Status> koniecGry, bool init = true)
+        /// <param name="promocjaPionka">funkcja wywolywana w momencie promocji pionka zwracajaca figure na ktora pionek ma sie zamienic</param>
+        /// <param name="koniecGry">funkcja wywolywana na koniec gry</param>
+        public Plansza(Func<Bierki> promocjaPionka, Action<Status> koniecGry)
         {
             this.promocjaPionka = promocjaPionka;
             this.koniecGry = koniecGry;
 
-            if (init)
-                Init();
+            Init();
+        }
+        /// <summary>
+        /// Konstruktor tworzący planszę do gry
+        /// </summary>
+        /// <param name="promocjaPionka">funkcja wywolywana w momencie promocji pionka zwracajaca figure na ktora pionek ma sie zamienic</param>
+        /// <param name="koniecGry">funkcja wywolywana na koniec gry</param>
+        /// <param name="listaBierek">nieregularne ulozenie startowe bierek na planszy</param>
+        public Plansza(Func<Bierki> promocjaPionka, Action<Status> koniecGry, List<Bierka> listaBierek)
+        {
+            this.promocjaPionka = promocjaPionka;
+            this.koniecGry = koniecGry;
+
+            bierki = listaBierek;
+            Przydziel();
         }
         /// <summary>
         /// Tworzenie podstawowej planszy

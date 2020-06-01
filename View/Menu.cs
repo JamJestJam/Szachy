@@ -1,7 +1,7 @@
-﻿using ChessLogic;
-using Logika;
+﻿using LogikaSzachy;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Widok
 {
@@ -47,6 +47,7 @@ namespace Widok
         /// </summary>
         public static void Main()
         {
+            Console.OutputEncoding = Encoding.UTF8;
             RysujGl();
             while (true)
             {
@@ -264,7 +265,12 @@ namespace Widok
                 //szerokosc pola
                 for (int j = 0; j < PoleSzerokosc; j++)
                 {
-                    Console.Write(' ');
+                    if (i == PoleWysokosc / 2 && j == PolowaSzerokosci && plansza.BierkaNaPozycji(punktDoRysowania, out Bierki bierka))
+                    {
+                        Console.Write(PrezentacjaBierki(bierka));
+                    }
+                    else
+                        Console.Write(' ');
                 }
             }
             Console.ResetColor();
@@ -403,6 +409,23 @@ namespace Widok
         /// ilosc pol na planszy w jednej osi
         /// </summary>
         const int PlanszaWielkosc = 8;
+        /// <summary>
+        /// zwraca polowe szerokosci pola dla wybranej metody prezencji bierek
+        /// </summary>
+        static int PolowaSzerokosci
+        {
+            get
+            {
+                if (opcje[1].stan == "symbole")
+                {
+                    return PoleSzerokosc / 2 - 1;
+                }
+                else
+                {
+                    return PoleSzerokosc / 2;
+                }
+            }
+        }
         /// <summary>
         /// aktyualna pozycja kursora na planszy
         /// </summary>

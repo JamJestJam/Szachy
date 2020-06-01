@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logika
+namespace LogikaSzachy
 {
     /// <summary>
     /// Przechowuje informacje o punktach w przeszczeni 2D

@@ -34,84 +34,28 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 Punkt przemieszczenie = Pozycja - new Punkt(i, i);
-                //sprawdzenie czy nadal znajdujemy się na planszy
-                if (przemieszczenie.Pomiedzy(7))
-                {
-                    //sprawdzenie czy na danej pozycji istnieje bierka
-                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
-                    {
-                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
-                        if (bierka.Kolor != Kolor)
-                            mozliweRuchy.Add(przemieszczenie);
-                        break;
-                    }
-                    else
-                        mozliweRuchy.Add(przemieszczenie);
-                }
-                else
+                if(SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
                     break;
             }
             //poruszanie sie na skos w gore i prawo
             for (int i = 1; i < 8; i++)
             {
                 Punkt przemieszczenie = Pozycja - new Punkt(i, -i);
-                //sprawdzenie czy nadal znajdujemy się na planszy
-                if (przemieszczenie.Pomiedzy(7))
-                {
-                    //sprawdzenie czy na danej pozycji istnieje bierka
-                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
-                    {
-                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
-                        if (bierka.Kolor != Kolor)
-                            mozliweRuchy.Add(przemieszczenie);
-                        break;
-                    }
-                    else
-                        mozliweRuchy.Add(przemieszczenie);
-                }
-                else
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
                     break;
             }
             //poruszanie sie na skos w dol i prawo
             for (int i = 1; i < 8; i++)
             {
                 Punkt przemieszczenie = Pozycja + new Punkt(i, i);
-                //sprawdzenie czy nadal znajdujemy się na planszy
-                if (przemieszczenie.Pomiedzy(7))
-                {
-                    //sprawdzenie czy na danej pozycji istnieje bierka
-                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
-                    {
-                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
-                        if (bierka.Kolor != Kolor)
-                            mozliweRuchy.Add(przemieszczenie);
-                        break;
-                    }
-                    else
-                        mozliweRuchy.Add(przemieszczenie);
-                }
-                else
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
                     break;
             }
             //poruszanie sie na skos w dol i lewo
             for (int i = 1; i < 8; i++)
             {
                 Punkt przemieszczenie = Pozycja + new Punkt(i, -i);
-                //sprawdzenie czy nadal znajdujemy się na planszy
-                if (przemieszczenie.Pomiedzy(7))
-                {
-                    //sprawdzenie czy na danej pozycji istnieje bierka
-                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
-                    {
-                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
-                        if (bierka.Kolor != Kolor)
-                            mozliweRuchy.Add(przemieszczenie);
-                        break;
-                    }
-                    else
-                        mozliweRuchy.Add(przemieszczenie);
-                }
-                else
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
                     break;
             }
 

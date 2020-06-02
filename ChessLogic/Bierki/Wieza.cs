@@ -28,7 +28,38 @@ namespace LogikaSzachy
         /// <returns>zwraca listę punktów na które wieza moze się przemieścić</returns>
         protected override List<Punkt> MozliweRuchy()
         {
-            throw new System.NotImplementedException();
+            List<Punkt> mozliweRuchy = new List<Punkt>();
+            //wieza moze poruszac sie w kazdym kierunku tylko po liniach prostych
+            //przemieszczenie w gore
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(0, i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //przemieszczenie w dol
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(0, i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //przemieszczenie w lewo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(i, 0);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //przemieszczenie w prawo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(i, 0);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+
+            return mozliweRuchy;
         }
     }
 }

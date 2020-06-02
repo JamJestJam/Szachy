@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LogikaSzachy
@@ -63,12 +64,30 @@ namespace LogikaSzachy
         public bool WykonajRuch(Punkt przemieszczenie)
         {
             //sprawdz czy przemieszczenie znajduje sie na liscie mozliwych ruchow
-            if(PobMozliweRuchy.Contains(przemieszczenie))
+            if (PobMozliweRuchy.Contains(przemieszczenie))
             {
                 Pozycja = przemieszczenie;
                 return true;
             }
             return false;
+        }
+        protected bool SprawdzMozliwoscWykonaniaRuchu(Punkt przemieszczenie, List<Punkt> ruchy)
+        {
+            //sprawdzenie czy nadal znajdujemy sie na planszy
+            if (przemieszczenie.Pomiedzy(7))
+            {
+                //sprawdzenie czy na danej pozycji znajduje sie bierka
+                if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
+                {
+                    //jezeli kolory sa rozne dodaj mozliwosc zbicia
+                    if (bierka.Kolor != Kolor)
+                        ruchy.Add(przemieszczenie);
+                    return true;
+                }
+                ruchy.Add(przemieszczenie);
+                return false;
+            }
+            return true;
         }
     }
 }

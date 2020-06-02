@@ -2,7 +2,7 @@ using LogikaSzachy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace TestRuchowPionkow
+namespace TestRuchowBierek
 {
     [TestClass]
     public class GoniecTest
@@ -158,7 +158,7 @@ namespace TestRuchowPionkow
         [DataRow(2, 4)]
         [DataRow(1, 5)]
         [DataRow(0, 6)]
-        public void TestRuchowGoncaOgraniczonegoInnymiBierkamiinnegoKoloru(int x, int y)
+        public void TestRuchowGoncaOgraniczonegoInnymiBierkamiInnegoKoloru(int x, int y)
         {
             //tworzenie danych
             List<Bierka> listaBierek = new List<Bierka>();

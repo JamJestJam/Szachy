@@ -139,7 +139,6 @@ namespace LogikaSzachy
             bierki.Add(new Skoczek(new Punkt(6, 7), Strona.Biała, this));
             bierki.Add(new Hetman(new Punkt(3, 7), Strona.Biała, this));
             bierki.Add(new Krol(new Punkt(4, 7), Strona.Biała, this));
-
             Przydziel();
         }
         /// <summary>
@@ -173,8 +172,8 @@ namespace LogikaSzachy
         }
         public bool BierkaNaPozycji(Punkt pozycja, out Bierka bierka)
         {
-            var tmp = (this.bierki.Find(x=>x.Pozycja==pozycja));
-            if(tmp == null)
+            var tmp = (this.bierki.Find(x => x.Pozycja == pozycja));
+            if (tmp == null)
             {
                 bierka = null;
                 return false;

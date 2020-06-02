@@ -1,6 +1,7 @@
 ﻿using LogikaSzachy;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Widok
@@ -225,7 +226,6 @@ namespace Widok
         /// </summary>
         static void RysujPlansze()
         {
-            Console.Clear();
             //wysokosc
             for (int i = 0; i < PlanszaWielkosc; i++)
             {
@@ -288,9 +288,8 @@ namespace Widok
             //inicjalizuje plansze
             plansza = new Plansza(PromocjaPionka, KoniecGry);
             gra = true;
-            //przygotowanie
-            /*tu kiedyś będzie kod*/
             //rysowanie
+            Console.Clear();
             RysujPlansze();
             //działanie
             while (gra)
@@ -338,6 +337,12 @@ namespace Widok
                             break;
                         }
                     case ConsoleKey.Enter:
+                        if(plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
+                        {
+                            zaznaczenie = kursorPozycja;
+                            mozliweRuchy = bierka.PobMozliweRuchy;
+                            RysujPlansze();
+                        }
                         break;
                     case ConsoleKey.Q:
                         Console.Clear();
@@ -438,7 +443,7 @@ namespace Widok
         /// <summary>
         /// lista możliwych ruchów do wykonania przez zaznaczoną bierke
         /// </summary>
-        static List<Punkt> mozliweRuchy = new List<Punkt>();
+        static IReadOnlyList<Punkt> mozliweRuchy = new List<Punkt>();
         /// <summary>
         /// aktualnie zaznaczona bierka;
         /// </summary>

@@ -26,7 +26,7 @@ namespace LogikaSzachy
         /// tworzenie listy możliwych do wykonania ruchow przez skoczka
         /// </summary>
         /// <returns>zwraca listę punktów na które skoczek moze się przemieścić</returns>
-        protected override List<Punkt> możliweRuchy()
+        protected override List<Punkt> MozliweRuchy()
         {
             throw new System.NotImplementedException();
         }

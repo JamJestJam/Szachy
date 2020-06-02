@@ -43,15 +43,15 @@ namespace LogikaSzachy
         /// tworzy liste możliwych do wykonania przez daną bierkę ruchów
         /// </summary>
         /// <returns>zwraca listę punktów na które bierka może się przemieścić</returns>
-        protected abstract List<Punkt> możliweRuchy();
+        protected abstract List<Punkt> MozliweRuchy();
         /// <summary>
         /// Lista możliwych punktów na które bierka może się przemiescić
         /// </summary>
-        public IReadOnlyList<Punkt> MozliweRuchy
+        public IReadOnlyList<Punkt> PobMozliweRuchy
         {
             get
             {
-                return możliweRuchy().AsReadOnly();
+                return MozliweRuchy().AsReadOnly();
             }
         }
     }

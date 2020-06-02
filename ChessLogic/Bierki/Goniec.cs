@@ -26,9 +26,96 @@ namespace LogikaSzachy
         /// tworzenie listy możliwych do wykonania ruchow przez goncia
         /// </summary>
         /// <returns>zwraca listę punktów na które goniec moze się przemieścić</returns>
-        protected override List<Punkt> możliweRuchy()
+        protected override List<Punkt> MozliweRuchy()
         {
-            throw new System.NotImplementedException();
+            List<Punkt> mozliweRuchy = new List<Punkt>();
+            //goniec ma mozliwosc poruszania sie na skosy do konca planszy lub do napotkania na inna bierke
+            //poruszanie sie na skos w gore i lewo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(i, i);
+                //sprawdzenie czy nadal znajdujemy się na planszy
+                if (przemieszczenie.Pomiedzy(7))
+                {
+                    //sprawdzenie czy na danej pozycji istnieje bierka
+                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
+                    {
+                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
+                        if (bierka.Kolor != Kolor)
+                            mozliweRuchy.Add(przemieszczenie);
+                        break;
+                    }
+                    else
+                        mozliweRuchy.Add(przemieszczenie);
+                }
+                else
+                    break;
+            }
+            //poruszanie sie na skos w gore i prawo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(i, -i);
+                //sprawdzenie czy nadal znajdujemy się na planszy
+                if (przemieszczenie.Pomiedzy(7))
+                {
+                    //sprawdzenie czy na danej pozycji istnieje bierka
+                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
+                    {
+                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
+                        if (bierka.Kolor != Kolor)
+                            mozliweRuchy.Add(przemieszczenie);
+                        break;
+                    }
+                    else
+                        mozliweRuchy.Add(przemieszczenie);
+                }
+                else
+                    break;
+            }
+            //poruszanie sie na skos w dol i prawo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(i, i);
+                //sprawdzenie czy nadal znajdujemy się na planszy
+                if (przemieszczenie.Pomiedzy(7))
+                {
+                    //sprawdzenie czy na danej pozycji istnieje bierka
+                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
+                    {
+                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
+                        if (bierka.Kolor != Kolor)
+                            mozliweRuchy.Add(przemieszczenie);
+                        break;
+                    }
+                    else
+                        mozliweRuchy.Add(przemieszczenie);
+                }
+                else
+                    break;
+            }
+            //poruszanie sie na skos w dol i lewo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(i, -i);
+                //sprawdzenie czy nadal znajdujemy się na planszy
+                if (przemieszczenie.Pomiedzy(7))
+                {
+                    //sprawdzenie czy na danej pozycji istnieje bierka
+                    if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
+                    {
+                        //jezeli bierki sa roznego koloru to dodaj mozliwosc zbicia bierki
+                        if (bierka.Kolor != Kolor)
+                            mozliweRuchy.Add(przemieszczenie);
+                        break;
+                    }
+                    else
+                        mozliweRuchy.Add(przemieszczenie);
+                }
+                else
+                    break;
+            }
+
+            return mozliweRuchy;
         }
     }
 }

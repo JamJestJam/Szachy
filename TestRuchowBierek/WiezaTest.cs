@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace TestRuchowBierek
 {
     [TestClass]
-    public class WiezaTest
+    public partial class TestRuchow
     {
         [DataTestMethod]
         [DataRow(5, 4)]

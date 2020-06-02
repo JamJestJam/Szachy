@@ -28,7 +28,26 @@ namespace LogikaSzachy
         /// <returns>zwraca listę punktów na które skoczek moze się przemieścić</returns>
         protected override List<Punkt> MozliweRuchy()
         {
-            throw new System.NotImplementedException();
+            List<Punkt> mozliweRuchy = new List<Punkt>();
+            //skoczek moze przemieszczac sie w kazdym kierunku o dwa pola w jednej osi i jedno pole w drugiej osi
+            //dol prawo
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, 2), mozliweRuchy);
+            //dol lewo
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(-1, 2), mozliweRuchy);
+            //lewo dol
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(-2, 1), mozliweRuchy);
+            //lewo gora
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(-2, -1), mozliweRuchy);
+            //gora lewo
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(-1, -2), mozliweRuchy);
+            //gora prawo
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, -2), mozliweRuchy);
+            //prawo gora
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, -1), mozliweRuchy);
+            //prawo dol
+            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 1), mozliweRuchy);
+
+            return mozliweRuchy;
         }
     }
 }

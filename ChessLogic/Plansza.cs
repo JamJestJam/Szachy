@@ -74,14 +74,6 @@ namespace LogikaSzachy
             { return (StronaGrajaca == Strona.Biała) ? bierkiBiale : bierkiCzarne; }
         }
         /// <summary>
-        /// lista bierek aktualnie nie grajacych
-        /// </summary>
-        List<Bierka> BierkiNieGrajace
-        {
-            get
-            { return (StronaGrajaca == Strona.Biała) ? bierkiBiale : bierkiCzarne; }
-        }
-        /// <summary>
         /// Lista wszyskich bierek na planszy
         /// </summary>
         public IReadOnlyList<Bierka> Bierki => bierki.AsReadOnly();

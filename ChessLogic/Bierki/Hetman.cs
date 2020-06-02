@@ -28,7 +28,66 @@ namespace LogikaSzachy
         /// <returns>zwraca listę punktów na które hetman moze się przemieścić</returns>
         protected override List<Punkt> MozliweRuchy()
         {
-            throw new System.NotImplementedException();
+            List<Punkt> mozliweRuchy = new List<Punkt>();
+            //hetman moze sie poruszac w kazdym kierunku zarowno po skosie jak i po liniach prostych
+            //przemieszczenie w gore
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(0, i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //przemieszczenie w dol
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(0, i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //przemieszczenie w lewo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(i, 0);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //przemieszczenie w prawo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(i, 0);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //poruszanie sie na skos w gore i lewo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(i, i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //poruszanie sie na skos w gore i prawo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja - new Punkt(i, -i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //poruszanie sie na skos w dol i prawo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(i, i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+            //poruszanie sie na skos w dol i lewo
+            for (int i = 1; i < 8; i++)
+            {
+                Punkt przemieszczenie = Pozycja + new Punkt(i, -i);
+                if (SprawdzMozliwoscWykonaniaRuchu(przemieszczenie, mozliweRuchy))
+                    break;
+            }
+
+            return mozliweRuchy;
         }
     }
 }

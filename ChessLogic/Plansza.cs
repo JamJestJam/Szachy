@@ -68,18 +68,18 @@ namespace LogikaSzachy
         /// <summary>
         /// lista bierek aktualnie grajacych
         /// </summary>
-        public IReadOnlyList<Bierka> bierkiGrajace
+        List<Bierka> BierkiGrajace
         {
             get
-            { return (StronaGrajaca == Strona.Biała) ? bierkiBiale.AsReadOnly() : bierkiCzarne.AsReadOnly(); }
+            { return (StronaGrajaca == Strona.Biała) ? bierkiBiale : bierkiCzarne; }
         }
         /// <summary>
         /// lista bierek aktualnie nie grajacych
         /// </summary>
-        public IReadOnlyList<Bierka> bierkiNieGrajace
+        List<Bierka> BierkiNieGrajace
         {
             get
-            { return (StronaGrajaca == Strona.Biała) ? bierkiBiale.AsReadOnly() : bierkiCzarne.AsReadOnly(); }
+            { return (StronaGrajaca == Strona.Biała) ? bierkiBiale : bierkiCzarne; }
         }
         /// <summary>
         /// Lista wszyskich bierek na planszy
@@ -144,7 +144,7 @@ namespace LogikaSzachy
         /// <summary>
         /// przydziela bierki do odpowiednich list
         /// </summary>
-        void Przydziel()
+        public void Przydziel()
         {
             for (int i = 0; i < bierki.Count; i++)
             {
@@ -170,6 +170,12 @@ namespace LogikaSzachy
                 }
             }
         }
+        /// <summary>
+        /// Sprawdza czy itnieje bierka na podanej pozycji
+        /// </summary>
+        /// <param name="pozycja">pozycja do srpawdzenia</param>
+        /// <param name="bierka">bierka ktora znajduje sie na podanej pozycji</param>
+        /// <returns>zwraca prawda jezeli istnieje bierka na pozycji</returns>
         public bool BierkaNaPozycji(Punkt pozycja, out Bierka bierka)
         {
             var tmp = (this.bierki.Find(x => x.Pozycja == pozycja));
@@ -180,6 +186,23 @@ namespace LogikaSzachy
             }
             bierka = tmp;
             return true;
+        }
+        /// <summary>
+        /// Probuje wykonac przemieszczenie bierki na wskazana pozycje
+        /// </summary>
+        /// <param name="pozycjaBierki">pozycja bierki ktora chcesz przemiescic</param>
+        /// <param name="pozycjaPrzemieszczenia">pozycja na ktora chcesz przemiescic bierke</param>
+        /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
+        public bool SprobujWykonacRuch(Punkt pozycjaBierki, Punkt pozycjaPrzemieszczenia)
+        {
+            Bierka tmp = BierkiGrajace.Find(x=>x.Pozycja == pozycjaBierki);
+            if (tmp == null)
+                return false;
+            if (tmp.WykonajRuch(pozycjaPrzemieszczenia))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

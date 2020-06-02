@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace LogikaSzachy
 {
@@ -53,6 +54,21 @@ namespace LogikaSzachy
             {
                 return MozliweRuchy().AsReadOnly();
             }
+        }
+        /// <summary>
+        /// prubuje przemiescic bierke na wskazana pozycje
+        /// </summary>
+        /// <param name="przemieszczenie">pozycja na ktora ma sie przemiescic bierka</param>
+        /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
+        public bool WykonajRuch(Punkt przemieszczenie)
+        {
+            //sprawdz czy przemieszczenie znajduje sie na liscie mozliwych ruchow
+            if(PobMozliweRuchy.Contains(przemieszczenie))
+            {
+                Pozycja = przemieszczenie;
+                return true;
+            }
+            return false;
         }
     }
 }

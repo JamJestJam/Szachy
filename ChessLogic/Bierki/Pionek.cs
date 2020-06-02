@@ -5,7 +5,7 @@ namespace LogikaSzachy
     /// <summary>
     /// Bierka pionek
     /// </summary>
-    class Pionek : Bierka
+    public class Pionek : Bierka
     {
         /// <summary>
         /// tworzenie bierki pionek

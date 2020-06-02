@@ -5,7 +5,7 @@ namespace LogikaSzachy
     /// <summary>
     /// Bierka hetman
     /// </summary>
-    class Hetman : Bierka
+    public class Hetman : Bierka
     {
         /// <summary>
         /// tworzenie bierki hetman

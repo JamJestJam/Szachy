@@ -5,7 +5,7 @@ namespace LogikaSzachy
     /// <summary>
     /// Bierka goniec
     /// </summary>
-    class Goniec : Bierka
+    public class Goniec : Bierka
     {
         /// <summary>
         /// tworzenie bierki goniec

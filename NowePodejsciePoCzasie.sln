@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Widok", "View\Widok.csproj"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logika", "ChessLogic\Logika.csproj", "{AC109DE5-0DE5-48AA-8890-F894CA27F43D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRuchowBierek", "TestRuchowPionkow\TestRuchowBierek.csproj", "{6BF7DE5F-C2F6-47B2-9F42-A18C6406BC13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRuchowBierek", "TestRuchowBierek\TestRuchowBierek.csproj", "{042471CC-025F-4BC5-AB16-E5B9DA99DCF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{AC109DE5-0DE5-48AA-8890-F894CA27F43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC109DE5-0DE5-48AA-8890-F894CA27F43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC109DE5-0DE5-48AA-8890-F894CA27F43D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BF7DE5F-C2F6-47B2-9F42-A18C6406BC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BF7DE5F-C2F6-47B2-9F42-A18C6406BC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BF7DE5F-C2F6-47B2-9F42-A18C6406BC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BF7DE5F-C2F6-47B2-9F42-A18C6406BC13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042471CC-025F-4BC5-AB16-E5B9DA99DCF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042471CC-025F-4BC5-AB16-E5B9DA99DCF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042471CC-025F-4BC5-AB16-E5B9DA99DCF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042471CC-025F-4BC5-AB16-E5B9DA99DCF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

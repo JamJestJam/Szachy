@@ -71,7 +71,13 @@ namespace LogikaSzachy
             }
             return false;
         }
-        protected bool SprawdzMozliwoscWykonaniaRuchu(Punkt przemieszczenie, List<Punkt> ruchy)
+        /// <summary>
+        /// Test czy punkt do przemieszczenia spełnia warunki.
+        /// </summary>
+        /// <param name="przemieszczenie">Punkt na ktory przemieszcza sie bierka</param>
+        /// <param name="ruchy">lista ruchów do ktorej nalezy dodac bierke</param>
+        /// <returns>zwraca prawde jeżeli nie wykryto problemow z przemieszczeniem</returns>
+        protected bool SprawdzMozliwoscWykonaniaRuchu(Punkt przemieszczenie, List<Punkt> ruchy, bool zbicie = true)
         {
             //sprawdzenie czy nadal znajdujemy sie na planszy
             if (przemieszczenie.Pomiedzy(7))
@@ -80,7 +86,7 @@ namespace LogikaSzachy
                 if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
                 {
                     //jezeli kolory sa rozne dodaj mozliwosc zbicia
-                    if (bierka.Kolor != Kolor)
+                    if (bierka.Kolor != Kolor && zbicie)
                         ruchy.Add(przemieszczenie);
                     return true;
                 }

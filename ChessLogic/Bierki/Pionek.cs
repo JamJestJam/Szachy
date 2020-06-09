@@ -7,6 +7,8 @@ namespace LogikaSzachy
     /// </summary>
     public class Pionek : Bierka
     {
+        int Strona { get { return (Kolor == LogikaSzachy.Strona.Biała) ? -1 : 1; } }
+
         /// <summary>
         /// tworzenie bierki pionek
         /// </summary>
@@ -22,13 +24,34 @@ namespace LogikaSzachy
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
         }
+
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez pionka
         /// </summary>
         /// <returns>zwraca listę punktów na które pionek moze się przemieścić</returns>
         protected override List<Punkt> MozliweRuchy()
         {
-            throw new System.NotImplementedException();
+            List<Punkt> mozliweRuchy = new List<Punkt>();
+            //pinek ma możliwość przemieszczenia się o jedno pole na przod
+            if (!SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, Strona) + Pozycja, mozliweRuchy, false))
+                //na dwa pola na przod jezeli jest nie wykonal jeszcze zadnego ruchu
+                if (PierwszyRuch)
+                    SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, 2 * Strona) + Pozycja, mozliweRuchy, false);
+
+
+            //zbijac na boki
+            //w lewo
+            Punkt zbicie = new Punkt(-1, Strona) + Pozycja;
+            if (plansza.BierkaNaPozycji(zbicie, out Bierka bierka))
+                if (bierka.Kolor != Kolor)
+                    mozliweRuchy.Add(zbicie);
+            // w prawo
+            zbicie = new Punkt(1, Strona) + Pozycja;
+            if (plansza.BierkaNaPozycji(zbicie, out bierka))
+                if (bierka.Kolor != Kolor)
+                    mozliweRuchy.Add(zbicie);
+
+            return mozliweRuchy;
         }
     }
 }

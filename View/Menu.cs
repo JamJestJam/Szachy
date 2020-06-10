@@ -337,11 +337,29 @@ namespace Widok
                             break;
                         }
                     case ConsoleKey.Enter:
-                        if(plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
+                        if(mozliweRuchy.Contains(kursorPozycja))
                         {
-                            zaznaczenie = kursorPozycja;
-                            mozliweRuchy = bierka.PobMozliweRuchy;
-                            RysujPlansze();
+                            //wykonaj ruch
+                            plansza.SprobujWykonacRuch(zaznaczenie, kursorPozycja);
+                            //stworz liste pol do wyczysczenia na planszy
+                            List<Punkt> czysc = mozliweRuchy.ToList();
+                            czysc.Add(kursorPozycja);
+                            czysc.Add(zaznaczenie);
+                            //usun stare dane o ruchu
+                            mozliweRuchy = new List<Punkt>();
+                            zaznaczenie = new Punkt(-1, -1);
+                            //wyczysc plansze
+                            foreach (Punkt punkt in czysc)
+                                RysujPole(punkt);
+                        }
+                        else if(plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
+                        {
+                            if (bierka.Kolor == plansza.StronaGrajaca)
+                            {
+                                zaznaczenie = kursorPozycja;
+                                mozliweRuchy = bierka.PobMozliweRuchy;
+                                RysujPlansze();
+                            }
                         }
                         break;
                     case ConsoleKey.Q:

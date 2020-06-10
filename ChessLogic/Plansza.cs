@@ -187,11 +187,12 @@ namespace LogikaSzachy
         /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
         public bool SprobujWykonacRuch(Punkt pozycjaBierki, Punkt pozycjaPrzemieszczenia)
         {
-            Bierka tmp = BierkiGrajace.Find(x=>x.Pozycja == pozycjaBierki);
+            Bierka tmp = BierkiGrajace.Find(x=> x.Pozycja == pozycjaBierki && x.Kolor==StronaGrajaca);
             if (tmp == null)
                 return false;
             if (tmp.WykonajRuch(pozycjaPrzemieszczenia))
             {
+                StronaGrajaca = (StronaGrajaca == Strona.Biała) ? Strona.Czarna : Strona.Biała;
                 return true;
             }
             return false;

@@ -66,6 +66,7 @@ namespace LogikaSzachy
             //sprawdz czy przemieszczenie znajduje sie na liscie mozliwych ruchow
             if (PobMozliweRuchy.Contains(przemieszczenie))
             {
+                PierwszyRuch = false;
                 Pozycja = przemieszczenie;
                 return true;
             }

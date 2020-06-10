@@ -36,19 +36,19 @@ namespace LogikaSzachy
         /// <summary>
         /// lista bialych bierek
         /// </summary>
-        readonly List<Bierka> bierkiBiale = new List<Bierka>();
+        List<Bierka> BierkiBiale { get => bierki.FindAll(x => x.Kolor == Strona.Biała); }
         /// <summary>
         /// lista czarnych bierek
         /// </summary>
-        readonly List<Bierka> bierkiCzarne = new List<Bierka>();
+        List<Bierka> BierkiCzarne { get => bierki.FindAll(x => x.Kolor == Strona.Czarna); }
         /// <summary>
         /// bialy krol
         /// </summary>
-        Krol krolBialy;
+        Krol krolBialy { get => (Krol)bierki.Find(x => x.Kolor == Strona.Biała && x.Nazwa == Bierki.Krol); }
         /// <summary>
         /// czarny krol
         /// </summary>
-        Krol krolCzarny;
+        Krol krolCzarny { get => (Krol)bierki.Find(x => x.Kolor == Strona.Czarna && x.Nazwa == Bierki.Krol); }
         public Strona StronaGrajaca { get; private set; }
         /// <summary>
         /// Funkcja wołana w momencie promocjii pionka
@@ -61,22 +61,11 @@ namespace LogikaSzachy
         /// <summary>
         /// krol grajacy
         /// </summary>
-        Krol krolGrajacy
-        {
-            get { return (StronaGrajaca == Strona.Biała) ? krolBialy : krolCzarny; }
-        }
+        Krol krolGrajacy { get => (StronaGrajaca == Strona.Biała) ? krolBialy : krolCzarny; }
         /// <summary>
         /// lista bierek aktualnie grajacych
         /// </summary>
-        List<Bierka> BierkiGrajace
-        {
-            get
-            { return (StronaGrajaca == Strona.Biała) ? bierkiBiale : bierkiCzarne; }
-        }
-        /// <summary>
-        /// Lista wszyskich bierek na planszy
-        /// </summary>
-        public IReadOnlyList<Bierka> Bierki => bierki.AsReadOnly();
+        List<Bierka> BierkiGrajace { get => (StronaGrajaca == Strona.Biała) ? BierkiBiale : BierkiCzarne; }
         /// <summary>
         /// Konstruktor tworzący planszę do gry
         /// </summary>
@@ -101,7 +90,6 @@ namespace LogikaSzachy
             this.koniecGry = koniecGry;
 
             bierki = listaBierek;
-            Przydziel();
         }
         /// <summary>
         /// Tworzenie podstawowej planszy
@@ -131,36 +119,6 @@ namespace LogikaSzachy
             bierki.Add(new Skoczek(new Punkt(6, 7), Strona.Biała, this));
             bierki.Add(new Hetman(new Punkt(3, 7), Strona.Biała, this));
             bierki.Add(new Krol(new Punkt(4, 7), Strona.Biała, this));
-            Przydziel();
-        }
-        /// <summary>
-        /// przydziela bierki do odpowiednich list
-        /// </summary>
-        public void Przydziel()
-        {
-            for (int i = 0; i < bierki.Count; i++)
-            {
-                if (bierki[i].Kolor == Strona.Biała)
-                {
-                    bierkiBiale.Add(bierki[i]);
-                }
-                else
-                {
-                    bierkiCzarne.Add(bierki[i]);
-                }
-
-                if (bierki[i].Nazwa == LogikaSzachy.Bierki.Krol)
-                {
-                    if (bierki[i].Kolor == Strona.Biała)
-                    {
-                        krolBialy = (Krol)bierki[i];
-                    }
-                    else
-                    {
-                        krolCzarny = (Krol)bierki[i];
-                    }
-                }
-            }
         }
         /// <summary>
         /// Sprawdza czy itnieje bierka na podanej pozycji
@@ -187,12 +145,15 @@ namespace LogikaSzachy
         /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
         public bool SprobujWykonacRuch(Punkt pozycjaBierki, Punkt pozycjaPrzemieszczenia)
         {
-            Bierka tmp = BierkiGrajace.Find(x=> x.Pozycja == pozycjaBierki && x.Kolor==StronaGrajaca);
-            if (tmp == null)
+            Bierka bierka = BierkiGrajace.Find(x => x.Pozycja == pozycjaBierki);
+            if (bierka == null)
                 return false;
-            if (tmp.WykonajRuch(pozycjaPrzemieszczenia))
+            if (bierka.WykonajRuch(pozycjaPrzemieszczenia))
             {
                 StronaGrajaca = (StronaGrajaca == Strona.Biała) ? Strona.Czarna : Strona.Biała;
+                Bierka zbita = BierkiGrajace.Find(x => x.Pozycja == pozycjaPrzemieszczenia);
+                if(bierka!=null)
+                    bierki.Remove(zbita);
                 return true;
             }
             return false;

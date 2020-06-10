@@ -30,7 +30,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
         }
@@ -96,7 +95,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
         }
@@ -129,7 +127,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             if (x <= 1 && y <= 1)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
@@ -171,7 +168,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             if (x < 1 && y < 1)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
@@ -210,7 +206,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(4, 7), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(0, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             if(x==4&& y==4)
                 Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));

@@ -34,7 +34,6 @@ namespace TestRuchowBierek
         [DataRow(7, 1)]
         [DataRow(7, 4)]
         [DataRow(7, 7)]
-
         public void TestRuchowHetmana(int x, int y)
         {
             //tworzenie danych
@@ -45,7 +44,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -97,7 +95,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -151,7 +148,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             if (x == 4 && y >= 6)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
@@ -221,7 +217,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             if (x == 4 && y > 6)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
@@ -283,7 +278,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
 
-            plansza.Przydziel();
             //sprawdzanie poprawnosci danych
             if(x == 3)
                 Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));

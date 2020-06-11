@@ -21,6 +21,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
+            this.wartoscPunktowa = int.MaxValue;
         }
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez krola

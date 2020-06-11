@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LogikaSzachy
 {
@@ -16,6 +17,16 @@ namespace LogikaSzachy
     /// </summary>
     public class Plansza
     {
+        /// <summary>
+        /// Lista ruchow mozliwych do wykonania przez bierki
+        /// Jezeli lista jest null - brak ograniczen w wykonywaniu ruchow
+        /// Jezeli lista jest pusta - brak mozliwosci wykonania ruchu, tylko krol moze sie ruszyc
+        /// </summary>
+        internal List<Punkt> zaslonieceiSzacha = null;
+        /// <summary>
+        /// ilosc wykonanych ruchow
+        /// </summary>
+        public int Ruchy { get; private set; }
         /// <summary>
         /// Lista możliwych stanów gry
         /// </summary>
@@ -61,7 +72,7 @@ namespace LogikaSzachy
         /// <summary>
         /// krol grajacy
         /// </summary>
-        Krol krolGrajacy { get => (StronaGrajaca == Strona.Biała) ? krolBialy : krolCzarny; }
+        Krol KrolGrajacy { get => (StronaGrajaca == Strona.Biała) ? krolBialy : krolCzarny; }
         /// <summary>
         /// lista bierek aktualnie grajacych
         /// </summary>
@@ -89,6 +100,7 @@ namespace LogikaSzachy
             this.promocjaPionka = promocjaPionka;
             this.koniecGry = koniecGry;
 
+            List<Bierka> tmp = new List<Bierka>();
             bierki = listaBierek;
         }
         /// <summary>
@@ -152,9 +164,147 @@ namespace LogikaSzachy
             {
                 StronaGrajaca = (StronaGrajaca == Strona.Biała) ? Strona.Czarna : Strona.Biała;
                 Bierka zbita = BierkiGrajace.Find(x => x.Pozycja == pozycjaPrzemieszczenia);
-                if(bierka!=null)
+                if (bierka != null)
                     bierki.Remove(zbita);
+                Ruchy++;
+                TestRuchow();
                 return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// Sprawdza czy nalezy ograniczyc liste mozliwych ruchow do wykonania przez bierki
+        /// </summary>
+        public void TestRuchow()
+        {
+            //zmienne 
+            Krol krol = KrolGrajacy;
+            zaslonieceiSzacha = null;
+            //linie proste
+            //w gore
+            List<Punkt> testLini = new List<Punkt>();
+            List<Bierka> obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja - new Punkt(0, i));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //w dol
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja + new Punkt(0, i));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //w lewo
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja - new Punkt(i, 0));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //w prawo
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja + new Punkt(i, 0));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //skosy
+            //w gore i lewo
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja - new Punkt(i, i));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //w prawo i dol
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja + new Punkt(i, i));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //w prawo i gore
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja + new Punkt(i, -i));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //w lewo i dol
+            testLini = new List<Punkt>();
+            obronca = new List<Bierka>();
+            for (int i = 1; i < 8; i++)
+            {
+                testLini.Add(krol.Pozycja + new Punkt(-i, i));
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                    break;
+            }
+            //skoczek
+            Test(new List<Punkt> { new Punkt(1, 2) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(-1, 2) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(-2, 1) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(-2, -1) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(-1, -2) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(1, -2) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(2, -1) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(2, 1) }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+        }
+        /// <summary>
+        /// test ograniczania ruchow bierki
+        /// </summary>
+        /// <param name="linia">linia po ktorej sie poruszamy</param>
+        /// <param name="obronca">test czy powsal wczesniej obronca</param>
+        /// <returns></returns>
+        bool Test(List<Punkt> linia, List<Bierka> obronca, List<Bierki> atakujacyList, int odleglosc)
+        {
+            if (!linia.Last().Pomiedzy(7))//sprawdz czy punkt nie jest poza plansza
+                return true;
+            if (BierkaNaPozycji(linia.Last(), out Bierka bierka))//czy na pozycji znajduje sie bierka
+            {
+                if (bierka.Kolor == StronaGrajaca)//jezeli ten sam kolor
+                {
+                    if (obronca.Count == 0)//jezeli to pierwszy obronca
+                        obronca.Add(bierka);//ustaw obronce
+                    else//jezeli kolejny
+                        return true;//jezeli jest dwuch obroncow to przestan sprawdzac
+                }
+                else//jezeli bierka jest innego koloru
+                {
+                    if (!atakujacyList.Contains(bierka.Nazwa))//sprawdzanie czy bierka atakujaca jest na liscie
+                        return true;
+                    if (bierka.Nazwa == Bierki.Krol || bierka.Nazwa == Bierki.Pionek)//test krola czy jest wystarczajaca odleglosc
+                        if (odleglosc > 1)
+                            return true;
+
+                    if (obronca.Count == 0)//jezeli nie ma obroncow
+                    {
+                        if (zaslonieceiSzacha == null)//jezeli juz nie było zasloniecia szacha
+                            zaslonieceiSzacha = linia;//ustaw linie jako jedyna mozliwosc do zasloniecia
+                        else//jezeli podwujny szach
+                            zaslonieceiSzacha = new List<Punkt>();//to brak mozliwosci ruchu
+                    }
+                    else//jezeli byl obronca
+                    {
+                        obronca[0].ograniczenia = linia;//ustaw ograniczenie do tej lini
+                        obronca[0].numerOgraniczenia = Ruchy;//ustaw ograniczenie na ta ture
+                    }
+                    return true;
+                }
             }
             return false;
         }

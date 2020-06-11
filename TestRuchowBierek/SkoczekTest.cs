@@ -181,9 +181,9 @@ namespace TestRuchowBierek
             listaBierek.Add(new Hetman(new Punkt(2, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Krol(new Punkt(2, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-
+            plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
-            if(x==2)
+            if (x==2)
                 Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
             else
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));

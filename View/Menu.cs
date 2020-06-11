@@ -337,7 +337,7 @@ namespace Widok
                             break;
                         }
                     case ConsoleKey.Enter:
-                        if(mozliweRuchy.Contains(kursorPozycja))
+                        if (mozliweRuchy.Contains(kursorPozycja))
                         {
                             //wykonaj ruch
                             plansza.SprobujWykonacRuch(zaznaczenie, kursorPozycja);
@@ -352,7 +352,7 @@ namespace Widok
                             foreach (Punkt punkt in czysc)
                                 RysujPole(punkt);
                         }
-                        else if(plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
+                        else if (plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
                         {
                             if (bierka.Kolor == plansza.StronaGrajaca)
                             {
@@ -518,6 +518,9 @@ namespace Widok
         static void KoniecGry(Plansza.Status statusGry)
         {
             gra = false;
+            Console.Clear();
+            Console.WriteLine("lel");
+            Console.ReadLine();
             return;
         }
     }

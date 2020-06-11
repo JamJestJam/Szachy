@@ -21,6 +21,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
+            this.wartoscPunktowa = 3;
         }
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez skoczka

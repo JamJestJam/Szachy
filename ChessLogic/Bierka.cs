@@ -22,6 +22,10 @@ namespace LogikaSzachy
     public abstract class Bierka
     {
         /// <summary>
+        /// Wartosc punktowa bierki
+        /// </summary>
+        public int wartoscPunktowa { get; protected set; }
+        /// <summary>
         /// Nazwa bierki
         /// </summary>
         public Bierki Nazwa { get; protected set; }
@@ -36,7 +40,7 @@ namespace LogikaSzachy
         /// <summary>
         /// Informacja o tym czy bierka wykonała już jakiś ruch
         /// </summary>
-        public bool PierwszyRuch { get; protected set; }
+        internal bool PierwszyRuch { get; set; }
         /// <summary>
         /// pozycja na której znajduje się bierka
         /// </summary>
@@ -47,13 +51,33 @@ namespace LogikaSzachy
         /// <returns>zwraca listę punktów na które bierka może się przemieścić</returns>
         protected abstract List<Punkt> MozliweRuchy();
         /// <summary>
+        /// Numer ruchu dla ktorego sa policzone ruchy
+        /// </summary>
+        internal int Kolejka = -1;
+        /// <summary>
+        /// lista ruchow mozliwych do wykonania w kolejce
+        /// </summary>
+        List<Punkt> policzoneRuchy;
+        /// <summary>
         /// Lista możliwych punktów na które bierka może się przemiescić
         /// </summary>
         public IReadOnlyList<Punkt> PobMozliweRuchy
         {
             get
             {
-                return MozliweRuchy().AsReadOnly();
+                if (Kolejka != plansza.Ruchy)
+                {
+                    policzoneRuchy = MozliweRuchy();
+                    if(numerOgraniczenia == plansza.Ruchy)
+                    {
+                        policzoneRuchy = policzoneRuchy.Intersect(ograniczenia).ToList();
+                    }
+                    if(plansza.zaslonieceiSzacha != null)
+                    {
+                        policzoneRuchy = policzoneRuchy.Intersect(plansza.zaslonieceiSzacha).ToList();
+                    }
+                }
+                return policzoneRuchy.AsReadOnly();
             }
         }
         /// <summary>
@@ -96,5 +120,8 @@ namespace LogikaSzachy
             }
             return true;
         }
+        //sterowanie mozliwosciami ruchowymi
+        internal int numerOgraniczenia = -1;
+        internal List<Punkt> ograniczenia = new List<Punkt>();
     }
 }

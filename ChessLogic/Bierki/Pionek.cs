@@ -23,6 +23,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
+            this.wartoscPunktowa = 1;
         }
 
         /// <summary>

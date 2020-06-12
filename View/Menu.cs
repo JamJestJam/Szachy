@@ -339,18 +339,10 @@ namespace Widok
                     case ConsoleKey.Enter:
                         if (mozliweRuchy.Contains(kursorPozycja))
                         {
-                            //wykonaj ruch
                             plansza.SprobujWykonacRuch(zaznaczenie, kursorPozycja);
-                            //stworz liste pol do wyczysczenia na planszy
-                            List<Punkt> czysc = mozliweRuchy.ToList();
-                            czysc.Add(kursorPozycja);
-                            czysc.Add(zaznaczenie);
-                            //usun stare dane o ruchu
+                            zaznaczenie = null;
                             mozliweRuchy = new List<Punkt>();
-                            zaznaczenie = new Punkt(-1, -1);
-                            //wyczysc plansze
-                            foreach (Punkt punkt in czysc)
-                                RysujPole(punkt);
+                            RysujPlansze();   
                         }
                         else if (plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
                         {

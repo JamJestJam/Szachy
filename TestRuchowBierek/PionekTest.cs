@@ -19,7 +19,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(0, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 4), Strona.Biała, plansza));
-
+            plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -96,7 +96,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(0, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 4), Strona.Biała, plansza));
-
+            plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -114,7 +114,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 5), Strona.Biała, plansza));
-
+            plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -132,7 +132,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 5), Strona.Czarna, plansza));
-
+            plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -149,15 +149,26 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Pionek(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Pionek(new Punkt(x, y), Strona.Czarna, plansza));
-
+            plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
 
         [TestMethod]
-        public void TestWykonaniaBiciaWprzelocie(int x, int y)
+        public void TestWykonaniaBiciaWprzelocie()
         {
-            throw new NotImplementedException();
+            //tworzenie danych
+            List<Bierka> listaBierek = new List<Bierka>();
+            Plansza plansza = new Plansza(null, null, listaBierek);
+            //dodawanie bierek na stol
+            listaBierek.Add(new Krol(new Punkt(0, 0), Strona.Biała, plansza));
+            listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
+            listaBierek.Add(new Pionek(new Punkt(3, 4), Strona.Czarna, plansza));
+            listaBierek.Add(new Pionek(new Punkt(4, 6), Strona.Biała, plansza));
+            plansza.TestRuchow();
+            //sprawdzanie poprawnosci danych
+            Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 6), new Punkt(4, 4)));
+            Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(3, 4), new Punkt(4, 5)));
         }
     }
 }

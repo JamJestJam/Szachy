@@ -85,7 +85,7 @@ namespace LogikaSzachy
         /// </summary>
         /// <param name="przemieszczenie">pozycja na ktora ma sie przemiescic bierka</param>
         /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
-        public bool WykonajRuch(Punkt przemieszczenie)
+        public virtual bool WykonajRuch(Punkt przemieszczenie)
         {
             //sprawdz czy przemieszczenie znajduje sie na liscie mozliwych ruchow
             if (PobMozliweRuchy.Contains(przemieszczenie))
@@ -101,6 +101,7 @@ namespace LogikaSzachy
         /// </summary>
         /// <param name="przemieszczenie">Punkt na ktory przemieszcza sie bierka</param>
         /// <param name="ruchy">lista ruchów do ktorej nalezy dodac bierke</param>
+        /// <param name="zbicie">czy jest akcja zbijania bierki</param>
         /// <returns>zwraca prawde jeżeli nie wykryto problemow z przemieszczeniem</returns>
         protected bool SprawdzMozliwoscWykonaniaRuchu(Punkt przemieszczenie, List<Punkt> ruchy, bool zbicie = true)
         {

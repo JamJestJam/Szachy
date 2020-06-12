@@ -20,7 +20,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Krol(new Punkt(0, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(7, 7), Strona.Czarna, plansza));
             listaBierek.Add(new Hetman(new Punkt(4, 4), Strona.Biała, plansza));
-
             listaBierek.Add(new Pionek(new Punkt(x, y), Strona.Czarna, plansza));
 
             //sprawdzanie poprawnosci danych

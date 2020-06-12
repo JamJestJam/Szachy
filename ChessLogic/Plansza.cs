@@ -24,9 +24,17 @@ namespace LogikaSzachy
         /// </summary>
         internal List<Punkt> zaslonieceiSzacha = null;
         /// <summary>
+        /// lista ruchow wykonanych na planszy
+        /// </summary>
+        private List<Tuple<Punkt, Punkt>> wykonaneRucy = new List<Tuple<Punkt, Punkt>>();
+        /// <summary>
+        /// lista wykonanych ruchow na planszy
+        /// </summary>
+        public IReadOnlyList<Tuple<Punkt, Punkt>> WykonaneRuchy { get => wykonaneRucy.AsReadOnly(); }
+        /// <summary>
         /// ilosc wykonanych ruchow
         /// </summary>
-        public int Ruchy { get; private set; }
+        public int Ruchy { get => wykonaneRucy.Count; }
         /// <summary>
         /// Lista możliwych stanów gry
         /// </summary>
@@ -163,10 +171,8 @@ namespace LogikaSzachy
             if (bierka.WykonajRuch(pozycjaPrzemieszczenia))
             {
                 StronaGrajaca = (StronaGrajaca == Strona.Biała) ? Strona.Czarna : Strona.Biała;
-                Bierka zbita = BierkiGrajace.Find(x => x.Pozycja == pozycjaPrzemieszczenia);
-                if (bierka != null)
-                    bierki.Remove(zbita);
-                Ruchy++;
+                ZbijBierke(pozycjaPrzemieszczenia, StronaGrajaca);
+                wykonaneRucy.Add(new Tuple<Punkt, Punkt>(pozycjaBierki, pozycjaPrzemieszczenia));
                 TestRuchow();
                 return true;
             }
@@ -307,6 +313,16 @@ namespace LogikaSzachy
                 }
             }
             return false;
+        }
+        /// <summary>
+        /// Usowa bierke z listy
+        /// </summary>
+        /// <param name="pozycja">pozycja na ktorej znajduje sie bierka do zbicia</param>
+        /// <param name="kolor">kolor bierki do zbicia</param>
+        internal void ZbijBierke(Punkt pozycja, Strona kolor)
+        {
+            Bierka zbita = bierki.Find(x => x.Pozycja == pozycja && x.Kolor == kolor);
+            bierki.Remove(zbita);
         }
     }
 }

@@ -17,6 +17,22 @@ namespace LogikaSzachy
     /// </summary>
     public class Plansza
     {
+        int aktualizacjaRuchow = -1;
+        List<Punkt> listaRuchowPrzeciwnika = new List<Punkt>();
+        internal List<Punkt> ListaRuchowPrzeciwnika { get
+            {
+                if(aktualizacjaRuchow!=Ruchy)
+                {
+                    List<Bierka> bierki = (StronaGrajaca == Strona.Biała) ? BierkiCzarne : BierkiBiale;
+                    List<Punkt> wynik = new List<Punkt>();
+                    foreach (Bierka bierka in bierki)
+                        foreach (Punkt punkt in bierka.PobMozliweRuchy)
+                            wynik.Add(punkt);
+
+                    listaRuchowPrzeciwnika = wynik.Distinct().ToList();
+                }
+                return listaRuchowPrzeciwnika;
+            } }
         /// <summary>
         /// Lista ruchow mozliwych do wykonania przez bierki
         /// Jezeli lista jest null - brak ograniczen w wykonywaniu ruchow

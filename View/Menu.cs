@@ -507,6 +507,10 @@ namespace Widok
         {
             return Bierki.Hetman;
         }
+        /// <summary>
+        /// funkcja odpalana na koniec gry
+        /// </summary>
+        /// <param name="statusGry">stan gry</param>
         static void KoniecGry(Plansza.Status statusGry)
         {
             gra = false;

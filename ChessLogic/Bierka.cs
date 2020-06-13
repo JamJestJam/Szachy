@@ -57,22 +57,22 @@ namespace LogikaSzachy
         /// <summary>
         /// lista ruchow mozliwych do wykonania w kolejce
         /// </summary>
-        List<Punkt> policzoneRuchy;
+        protected List<Punkt> policzoneRuchy;
         /// <summary>
         /// Lista możliwych punktów na które bierka może się przemiescić
         /// </summary>
-        public IReadOnlyList<Punkt> PobMozliweRuchy
+        public virtual IReadOnlyList<Punkt> PobMozliweRuchy
         {
             get
             {
                 if (Kolejka != plansza.Ruchy)
                 {
                     policzoneRuchy = MozliweRuchy();
-                    if(numerOgraniczenia == plansza.Ruchy)
+                    if (NumerOgraniczenia == plansza.Ruchy)
                     {
-                        policzoneRuchy = policzoneRuchy.Intersect(ograniczenia).ToList();
+                        policzoneRuchy = policzoneRuchy.Intersect(Ograniczenia).ToList();
                     }
-                    if(plansza.zaslonieceiSzacha != null)
+                    if (plansza.zaslonieceiSzacha != null)
                     {
                         policzoneRuchy = policzoneRuchy.Intersect(plansza.zaslonieceiSzacha).ToList();
                     }
@@ -122,7 +122,27 @@ namespace LogikaSzachy
             return true;
         }
         //sterowanie mozliwosciami ruchowymi
-        internal int numerOgraniczenia = -1;
-        internal List<Punkt> ograniczenia = new List<Punkt>();
+        int numerOgraniczenia = -1;
+        /// <summary>
+        /// Numer ruchu dla ktorego sa wprowadzone ograniczenia
+        /// </summary>
+        internal int NumerOgraniczenia
+        {
+            get => numerOgraniczenia; set
+            {
+                if (value != numerOgraniczenia)
+                {
+                    numerOgraniczenia = value;
+                    Ograniczenia = new List<Punkt>();
+                }
+            }
+        }
+        /// <summary>
+        /// ograniczenia w poruszaniu sie bierki
+        /// </summary>
+        internal List<Punkt> Ograniczenia
+        {
+            get; set;
+        }
     }
 }

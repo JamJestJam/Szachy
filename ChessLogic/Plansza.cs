@@ -193,7 +193,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja - new Punkt(0, i));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i, krol))
                     break;
             }
             //w dol
@@ -202,7 +202,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja + new Punkt(0, i));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i, krol))
                     break;
             }
             //w lewo
@@ -211,7 +211,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja - new Punkt(i, 0));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i, krol))
                     break;
             }
             //w prawo
@@ -220,7 +220,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja + new Punkt(i, 0));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Wieża, Bierki.Krol }, i, krol))
                     break;
             }
             //skosy
@@ -230,7 +230,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja - new Punkt(i, i));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i, krol))
                     break;
             }
             //w prawo i dol
@@ -239,7 +239,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja + new Punkt(i, i));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i, krol))
                     break;
             }
             //w prawo i gore
@@ -248,7 +248,7 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja + new Punkt(i, -i));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i, krol))
                     break;
             }
             //w lewo i dol
@@ -257,18 +257,18 @@ namespace LogikaSzachy
             for (int i = 1; i < 8; i++)
             {
                 testLini.Add(krol.Pozycja + new Punkt(-i, i));
-                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i))
+                if (Test(testLini, obronca, new List<Bierki> { Bierki.Hetman, Bierki.Goniec, Bierki.Krol, Bierki.Pionek }, i, krol))
                     break;
             }
             //skoczek
-            Test(new List<Punkt> { new Punkt(1, 2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(-1, 2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(-2, 1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(-2, -1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(-1, -2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(1, -2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(2, -1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
-            Test(new List<Punkt> { new Punkt(2, 1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0);
+            Test(new List<Punkt> { new Punkt(1, 2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(-1, 2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(-2, 1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(-2, -1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(-1, -2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(1, -2) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(2, -1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
+            Test(new List<Punkt> { new Punkt(2, 1) + krol.Pozycja }, new List<Bierka>(), new List<Bierki> { Bierki.Skoczek }, 0, krol);
         }
         /// <summary>
         /// test ograniczania ruchow bierki
@@ -276,7 +276,7 @@ namespace LogikaSzachy
         /// <param name="linia">linia po ktorej sie poruszamy</param>
         /// <param name="obronca">test czy powsal wczesniej obronca</param>
         /// <returns></returns>
-        bool Test(List<Punkt> linia, List<Bierka> obronca, List<Bierki> atakujacyList, int odleglosc)
+        bool Test(List<Punkt> linia, List<Bierka> obronca, List<Bierki> atakujacyList, int odleglosc, Krol krol)
         {
             if (!linia.Last().Pomiedzy(7))//sprawdz czy punkt nie jest poza plansza
                 return true;
@@ -306,8 +306,8 @@ namespace LogikaSzachy
                     }
                     else//jezeli byl obronca
                     {
-                        obronca[0].ograniczenia = linia;//ustaw ograniczenie do tej lini
-                        obronca[0].numerOgraniczenia = Ruchy;//ustaw ograniczenie na ta ture
+                        obronca[0].Ograniczenia = linia;//ustaw ograniczenie do tej lini
+                        obronca[0].NumerOgraniczenia = Ruchy;//ustaw ograniczenie na ta ture
                     }
                     return true;
                 }

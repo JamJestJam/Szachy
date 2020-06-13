@@ -147,6 +147,7 @@ namespace TestRuchowBierek
 
         [DataTestMethod]
         [DataRow(5, 3)]
+        [DataRow(3, 3)]
         [DataRow(5, 4)]
         [DataRow(5, 5)]
         public void TestOgraniczeniaRuchowKrolaWmomencieWejsciaPodMata(int x, int y)
@@ -156,8 +157,8 @@ namespace TestRuchowBierek
             Plansza plansza = new Plansza(null, null, listaBierek);
             //dodawanie bierek na stol
             listaBierek.Add(new Krol(new Punkt(4, 4), Strona.Biała, plansza));
-            listaBierek.Add(new Hetman(new Punkt(5, 7), Strona.Czarna, plansza));
-            listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
+            listaBierek.Add(new Hetman(new Punkt(5, 1), Strona.Czarna, plansza));
+            listaBierek.Add(new Krol(new Punkt(0, 0), Strona.Czarna, plansza));
             plansza.TestRuchow();
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));

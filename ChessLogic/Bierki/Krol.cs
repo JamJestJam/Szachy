@@ -67,14 +67,16 @@ namespace LogikaSzachy
             {
                 if (Kolejka != plansza.Ruchy)
                 {
-                    ograniczRuchy();
                     policzoneRuchy = MozliweRuchy();
-                    policzoneRuchy = policzoneRuchy.Except(plansza.ListaRuchowPrzeciwnika).ToList();
+                    if (Kolor == plansza.StronaGrajaca)
+                    {
+                        policzoneRuchy = policzoneRuchy.Except(plansza.ListaRuchowPrzeciwnika).ToList();
 
-                    if (policzoneRuchy.Find(x => x == Pozycja + new Punkt(0, 1)) == null)
-                        policzoneRuchy.Remove(Pozycja + new Punkt(0, 2));
-                    if (policzoneRuchy.Find(x => x == Pozycja + new Punkt(0, -1)) == null)
-                        policzoneRuchy.Remove(Pozycja + new Punkt(0, -2));
+                        if (policzoneRuchy.FindAll(x => x == Pozycja + new Punkt(1, 0)).Count == 0)
+                            policzoneRuchy.Remove(Pozycja + new Punkt(2, 0));
+                        if (policzoneRuchy.FindAll(x => x == Pozycja + new Punkt(-1, 0)).Count == 0)
+                            policzoneRuchy.Remove(Pozycja + new Punkt(-2, 0));
+                    }
                 }
                 return policzoneRuchy.AsReadOnly();
             }

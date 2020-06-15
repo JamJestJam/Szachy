@@ -22,7 +22,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
-            this.wartoscPunktowa = int.MaxValue;
+            this.WartoscPunktowa = int.MaxValue;
         }
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez krola
@@ -36,24 +36,28 @@ namespace LogikaSzachy
             SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(0, 1), mozliweRuchy);
             //w gore lewo
             SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(1, 1), mozliweRuchy);
-            //w lewo
-            SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(1, 0), mozliweRuchy);
             //w lewo dol
             SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(1, -1), mozliweRuchy);
             //w dol
             SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(0, 1), mozliweRuchy);
             //w dol i prawo
             SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, 1), mozliweRuchy);
-            //w prawo
-            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, 0), mozliweRuchy);
             //w prawo i gore
             SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, -1), mozliweRuchy);
 
             //dluga roszada
-            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(-2, 0), mozliweRuchy);
+            //w lewo
+            if (!SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(1, 0), mozliweRuchy))
+                if (PierwszyRuch && plansza.StronaGrajaca==Kolor)
+                    if (!plansza.BierkaNaPozycji(Pozycja - new Punkt(3, 0), out _))
+                        if (plansza.bierki.Exists(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja - new Punkt(4, 0) && x.PierwszyRuch))
+                            SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(2, 0), mozliweRuchy);
             //krotka roszada
-            SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 0), mozliweRuchy);
-
+            //w prawo
+            if (!SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, 0), mozliweRuchy))
+                if (PierwszyRuch && plansza.StronaGrajaca == Kolor)
+                    if (plansza.bierki.Exists(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja + new Punkt(3, 0) && x.PierwszyRuch))
+                        SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 0), mozliweRuchy);
             //krol moze rowniez wykonac roszady
             //to do
             return mozliweRuchy;
@@ -72,9 +76,9 @@ namespace LogikaSzachy
                     {
                         policzoneRuchy = policzoneRuchy.Except(plansza.ListaRuchowPrzeciwnika).ToList();
 
-                        if (policzoneRuchy.FindAll(x => x == Pozycja + new Punkt(1, 0)).Count == 0)
+                        if (!policzoneRuchy.Exists(x => x == Pozycja + new Punkt(1, 0)))
                             policzoneRuchy.Remove(Pozycja + new Punkt(2, 0));
-                        if (policzoneRuchy.FindAll(x => x == Pozycja + new Punkt(-1, 0)).Count == 0)
+                        if (!policzoneRuchy.Exists(x => x == Pozycja + new Punkt(-1, 0)))
                             policzoneRuchy.Remove(Pozycja + new Punkt(-2, 0));
                     }
                 }

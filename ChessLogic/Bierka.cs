@@ -24,7 +24,7 @@ namespace LogikaSzachy
         /// <summary>
         /// Wartosc punktowa bierki
         /// </summary>
-        public int wartoscPunktowa { get; protected set; }
+        public int WartoscPunktowa { get; protected set; }
         /// <summary>
         /// Nazwa bierki
         /// </summary>
@@ -68,13 +68,16 @@ namespace LogikaSzachy
                 if (Kolejka != plansza.Ruchy)
                 {
                     policzoneRuchy = MozliweRuchy();
-                    if (NumerOgraniczenia == plansza.Ruchy)
+                    if (Kolor == plansza.StronaGrajaca)
                     {
-                        policzoneRuchy = policzoneRuchy.Intersect(Ograniczenia).ToList();
-                    }
-                    if (plansza.zaslonieceiSzacha != null)
-                    {
-                        policzoneRuchy = policzoneRuchy.Intersect(plansza.zaslonieceiSzacha).ToList();
+                        if (NumerOgraniczenia == plansza.Ruchy)
+                        {
+                            policzoneRuchy = policzoneRuchy.Intersect(Ograniczenia).ToList();
+                        }
+                        if (plansza.zaslonieceiSzacha != null)
+                        {
+                            policzoneRuchy = policzoneRuchy.Intersect(plansza.zaslonieceiSzacha).ToList();
+                        }
                     }
                 }
                 return policzoneRuchy.AsReadOnly();

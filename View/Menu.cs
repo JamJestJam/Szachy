@@ -15,7 +15,7 @@ namespace Widok
         /// <summary>
         /// opcje do wyboru w menu głównym
         /// </summary>
-        static string[] opcjeMenu = { " Rozpocznij grę ", " Opcje ", " Wyjdz " };
+        static readonly string[] opcjeMenu = { " Rozpocznij grę ", " Opcje ", " Wyjdz " };
         /// <summary>
         /// wybrana opcja w menu głównym
         /// </summary>
@@ -89,7 +89,7 @@ namespace Widok
         /// <summary>
         /// lista możliwych opcji do wyboru
         /// </summary>
-        static Opcja[] opcje = {
+        static readonly Opcja[] opcje = {
             new Opcja("Rozmiar pola", new List<string>{ "mały","średni","duży" }),
             new Opcja("Prezentacja bierek", new List<string>{ "symbole","litery" })
         };
@@ -110,7 +110,7 @@ namespace Widok
                     Console.BackgroundColor = ConsoleColor.Green;
 
                 Console.CursorLeft = srodek;
-                Console.WriteLine($"{opcje[i].NazwaOpcji} : {opcje[i].stan}");
+                Console.WriteLine($"{opcje[i].NazwaOpcji} : {opcje[i].Stan}");
 
                 Console.ResetColor();
             }
@@ -154,7 +154,7 @@ namespace Widok
         /// <summary>
         /// lista opcji menu start
         /// </summary>
-        static string[] opcjeStart = { "Tryb dla dwóch graczy", "Gracz vs komputer jako białe", "Gracz vs komputer jako czarne" };
+        static readonly string[] opcjeStart = { "Tryb dla dwóch graczy", "Gracz vs komputer jako białe", "Gracz vs komputer jako czarne" };
         /// <summary>
         /// aktualnie wybrana opcja menu start
         /// </summary>
@@ -374,13 +374,11 @@ namespace Widok
         {
             get
             {
-                switch (opcje[1].stan)
+                return opcje[1].Stan switch
                 {
-                    case "litery":
-                        return false;
-                    default:
-                        return true;
-                }
+                    "litery" => false,
+                    _ => true,
+                };
             }
         }
         /// <summary>
@@ -390,7 +388,7 @@ namespace Widok
         {
             get
             {
-                switch (opcje[0].stan)
+                switch (opcje[0].Stan)
                 {
                     case "mały":
                         if (PrezentacjaGryZaPomocaSyboli)
@@ -414,15 +412,12 @@ namespace Widok
         {
             get
             {
-                switch (opcje[0].stan)
+                return opcje[0].Stan switch
                 {
-                    case "mały":
-                        return 1;
-                    case "średni":
-                        return 3;
-                    default:
-                        return 5;
-                }
+                    "mały" => 1,
+                    "średni" => 3,
+                    _ => 5,
+                };
             }
         }
         /// <summary>
@@ -436,7 +431,7 @@ namespace Widok
         {
             get
             {
-                if (opcje[1].stan == "symbole")
+                if (opcje[1].Stan == "symbole")
                 {
                     return PoleSzerokosc / 2 - 1;
                 }
@@ -465,7 +460,7 @@ namespace Widok
         /// <returns>string z bierka</returns>
         static string PrezentacjaBierki(Bierki bierka)
         {
-            if (opcje[1].stan == "symbole")
+            if (opcje[1].Stan == "symbole")
             {
                 return bierkiPrezentacjaSymbole[bierka];
             }
@@ -477,7 +472,7 @@ namespace Widok
         /// <summary>
         /// prezentacja bierek za pomocą liter
         /// </summary>
-        static Dictionary<Bierki, string> bierkiPrezentacjaLitery = new Dictionary<Bierki, string>
+        static readonly Dictionary<Bierki, string> bierkiPrezentacjaLitery = new Dictionary<Bierki, string>
         {
             { Bierki.Krol, "K" },
             { Bierki.Hetman, "H"},
@@ -489,7 +484,7 @@ namespace Widok
         /// <summary>
         /// prezentacja bierek za pomocą symboli
         /// </summary>
-        static Dictionary<Bierki, string> bierkiPrezentacjaSymbole = new Dictionary<Bierki, string>
+        static readonly Dictionary<Bierki, string> bierkiPrezentacjaSymbole = new Dictionary<Bierki, string>
         {
             { Bierki.Krol, "♚" },
             { Bierki.Hetman, "♛"},
@@ -533,11 +528,12 @@ namespace Widok
         /// nazwa opcji
         /// </summary>
         public string NazwaOpcji { get; private set; }
+
         /// <summary>
         /// lista możliwych stanów
         /// </summary>
-        List<string> listaOpcji;
-        public string stan => listaOpcji[wybranaOpcja];
+        readonly List<string> listaOpcji;
+        public string Stan => listaOpcji[wybranaOpcja];
         /// <summary>
         /// Konstruktor opcji
         /// </summary>

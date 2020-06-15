@@ -21,7 +21,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
-            this.wartoscPunktowa = 5;
+            this.WartoscPunktowa = 5;
         }
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez wieze

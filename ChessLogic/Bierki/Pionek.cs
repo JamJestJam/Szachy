@@ -27,7 +27,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
-            this.wartoscPunktowa = 1;
+            this.WartoscPunktowa = 1;
         }
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez pionka
@@ -85,7 +85,7 @@ namespace LogikaSzachy
             if (PobMozliweRuchy.Contains(przemieszczenie))
             {
                 if (przemieszczenie - Pozycja == new Punkt(-1, Strona) || przemieszczenie - Pozycja == new Punkt(1, Strona))
-                    if (!plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
+                    if (!plansza.BierkaNaPozycji(przemieszczenie, out _))
                         plansza.ZbijBierke(przemieszczenie - new Punkt(0, Strona), (Kolor == LogikaSzachy.Strona.Biała) ? LogikaSzachy.Strona.Czarna : LogikaSzachy.Strona.Biała);
                 PierwszyRuch = false;
                 Pozycja = przemieszczenie;

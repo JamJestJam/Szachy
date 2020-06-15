@@ -48,7 +48,7 @@ namespace LogikaSzachy
             //dluga roszada
             //w lewo
             if (!SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(1, 0), mozliweRuchy))
-                if (PierwszyRuch && plansza.StronaGrajaca==Kolor)
+                if (PierwszyRuch && plansza.StronaGrajaca == Kolor)
                     if (!plansza.BierkaNaPozycji(Pozycja - new Punkt(3, 0), out _))
                         if (plansza.bierki.Exists(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja - new Punkt(4, 0) && x.PierwszyRuch))
                             SprawdzMozliwoscWykonaniaRuchu(Pozycja - new Punkt(2, 0), mozliweRuchy);
@@ -56,8 +56,7 @@ namespace LogikaSzachy
             //w prawo
             if (!SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, 0), mozliweRuchy))
                 if (PierwszyRuch && plansza.StronaGrajaca == Kolor)
-                    if (plansza.bierki.Exists(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja + new Punkt(3, 0) && x.PierwszyRuch))
-                        SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 0), mozliweRuchy);
+                    SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 0), mozliweRuchy);
             //krol moze rowniez wykonac roszady
             //to do
             return mozliweRuchy;
@@ -76,6 +75,7 @@ namespace LogikaSzachy
                     {
                         policzoneRuchy = policzoneRuchy.Except(plansza.ListaRuchowPrzeciwnika).ToList();
 
+                        Bierka prawaWieza = plansza.bierki.Find(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja + new Punkt(3, 0) && x.PierwszyRuch);
                         if (!policzoneRuchy.Exists(x => x == Pozycja + new Punkt(1, 0)))
                             policzoneRuchy.Remove(Pozycja + new Punkt(2, 0));
                         if (!policzoneRuchy.Exists(x => x == Pozycja + new Punkt(-1, 0)))
@@ -84,6 +84,27 @@ namespace LogikaSzachy
                 }
                 return policzoneRuchy.AsReadOnly();
             }
+        }
+        /// <summary>
+        /// prubuje przemiescic bierke na wskazana pozycje
+        /// </summary>
+        /// <param name="przemieszczenie">pozycja na ktora ma sie przemiescic bierka</param>
+        /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
+        public override bool WykonajRuch(Punkt przemieszczenie)
+        {
+            //sprawdz czy przemieszczenie znajduje sie na liscie mozliwych ruchow
+            if (PobMozliweRuchy.Contains(przemieszczenie))
+            {
+                PierwszyRuch = false;
+                if (Pozycja - przemieszczenie == new Punkt(-2, 0))
+                    plansza.bierki.Find(x => x.Pozycja == Pozycja + new Punkt(3, 0)).Pozycja = Pozycja + new Punkt(1, 0);
+                if (Pozycja - przemieszczenie == new Punkt(2, 0))
+                    plansza.bierki.Find(x => x.Pozycja == Pozycja - new Punkt(4, 0)).Pozycja = Pozycja - new Punkt(1, 0);
+                Pozycja = przemieszczenie;
+
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace LogikaSzachy
         /// <summary>
         /// pozycja na której znajduje się bierka
         /// </summary>
-        public Punkt Pozycja { get; protected set; }
+        public Punkt Pozycja { get; internal set; }
         /// <summary>
         /// tworzy liste możliwych do wykonania przez daną bierkę ruchów
         /// </summary>

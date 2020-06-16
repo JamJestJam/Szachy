@@ -342,7 +342,8 @@ namespace Widok
                             plansza.SprobujWykonacRuch(zaznaczenie, kursorPozycja);
                             zaznaczenie = null;
                             mozliweRuchy = new List<Punkt>();
-                            RysujPlansze();   
+                            if (gra)
+                                RysujPlansze();
                         }
                         else if (plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
                         {
@@ -510,9 +511,18 @@ namespace Widok
         {
             gra = false;
             Console.Clear();
-            Console.WriteLine("lel");
+            if (statusGry == Plansza.Status.Pat)
+                Console.WriteLine("Gra zakoncoczna remisem");
+            else if (statusGry == Plansza.Status.Mat)
+            {
+                Console.Write("Wygrała storna");
+                if (plansza.StronaGrajaca == Strona.Biała)
+                    Console.WriteLine(" Czarna");
+                else
+                    Console.WriteLine(" Biała");
+            }
             Console.ReadLine();
-            return;
+            Console.Clear();
         }
     }
     /// <summary>

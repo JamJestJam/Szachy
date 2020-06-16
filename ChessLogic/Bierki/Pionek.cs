@@ -89,6 +89,9 @@ namespace LogikaSzachy
                         plansza.ZbijBierke(przemieszczenie - new Punkt(0, Strona), (Kolor == LogikaSzachy.Strona.Biała) ? LogikaSzachy.Strona.Czarna : LogikaSzachy.Strona.Biała);
                 PierwszyRuch = false;
                 Pozycja = przemieszczenie;
+
+                if (Pozycja.Y == 7 || Pozycja.Y == 0)
+                    plansza.PromocjaPionka(this);
                 return true;
             }
             return false;

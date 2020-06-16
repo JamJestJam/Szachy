@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LogikaSzachy
 {
@@ -29,9 +30,11 @@ namespace LogikaSzachy
         /// Lusta ruchow przeciwnika w turze "aktualizacjaRuchow"
         /// </summary>
         List<Punkt> listaRuchowPrzeciwnika = new List<Punkt>();
-        internal List<Punkt> ListaRuchowPrzeciwnika { get
+        internal List<Punkt> ListaRuchowPrzeciwnika
+        {
+            get
             {
-                if(aktualizacjaRuchow!=Ruchy)
+                if (aktualizacjaRuchow != Ruchy)
                 {
                     List<Bierka> bierki = (StronaGrajaca == Strona.Biała) ? BierkiCzarne : BierkiBiale;
                     List<Punkt> wynik = new List<Punkt>();
@@ -42,7 +45,8 @@ namespace LogikaSzachy
                     listaRuchowPrzeciwnika = wynik.Distinct().ToList();
                 }
                 return listaRuchowPrzeciwnika;
-            } }
+            }
+        }
         /// <summary>
         /// Lista ruchow mozliwych do wykonania przez bierki
         /// Jezeli lista jest null - brak ograniczen w wykonywaniu ruchow
@@ -366,23 +370,23 @@ namespace LogikaSzachy
                 return;
             }
             //jezeli nie wykonano przelomu od 50 ruchow
-            if(Ruchy - zmianaStatusu > 50)
+            if (Ruchy - zmianaStatusu > 50)
             {
                 StanGry = Status.Pat;
                 koniecGry(StanGry);
                 return;
             }
             //jezeli jest mozliwosc wykonania ruchu kontynuujemy gre
-            bierkiGrajace.ForEach(x =>
+            foreach(var x in bierkiGrajace)
             {
                 if (x.PobMozliweRuchy.Count > 0)
                 {
                     StanGry = Status.Gra;
                     return;
                 }
-            });
+            }
             //jezeli krol jest pod atakiem to mat
-            if(listaRuchowPrzeciwnika.Contains(KrolGrajacy.Pozycja))
+            if (listaRuchowPrzeciwnika.Contains(KrolGrajacy.Pozycja))
             {
                 StanGry = Status.Mat;
                 koniecGry(StanGry);
@@ -392,6 +396,36 @@ namespace LogikaSzachy
             StanGry = Status.Pat;
             koniecGry(StanGry);
             return;
+        }
+        /// <summary>
+        /// Funkcja do wyboru promocji pionka
+        /// </summary>
+        /// <param name="pionek">Pionek do promocji</param>
+        internal void PromocjaPionka(Pionek pionek)
+        {
+            Bierki promocja = promocjaPionka();
+            bierki.Remove(pionek);
+            switch (promocja)
+            {
+                case Bierki.Hetman:
+                    bierki.Add(new Hetman(pionek.Pozycja, pionek.Kolor, this, false));
+                    break;
+                case Bierki.Goniec:
+                    bierki.Add(new Goniec(pionek.Pozycja, pionek.Kolor, this, false));
+                    break;
+                case Bierki.Wieża:
+                    bierki.Add(new Wieza(pionek.Pozycja, pionek.Kolor, this, false));
+                    break;
+                case Bierki.Skoczek:
+                    bierki.Add(new Skoczek(pionek.Pozycja, pionek.Kolor, this, false));
+                    break;
+                case Bierki.Krol:
+                    throw new ArgumentException("Niemozliwa jest promocja do krola");
+                case Bierki.Pionek:
+                    throw new ArgumentException("Niemozliwa jest promocja do pionka");
+                default:
+                    throw new ArgumentException("Niemozliwa promocja bierki");
+            }
         }
     }
 }

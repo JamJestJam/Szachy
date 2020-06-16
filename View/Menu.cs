@@ -475,11 +475,11 @@ namespace Widok
         /// </summary>
         static readonly Dictionary<Bierki, string> bierkiPrezentacjaLitery = new Dictionary<Bierki, string>
         {
-            { Bierki.Krol, "K" },
             { Bierki.Hetman, "H"},
             { Bierki.Wieża, "W"},
             { Bierki.Goniec, "G"},
             { Bierki.Skoczek, "S"},
+            { Bierki.Krol, "K" },
             { Bierki.Pionek, "P"}
         };
         /// <summary>
@@ -487,21 +487,102 @@ namespace Widok
         /// </summary>
         static readonly Dictionary<Bierki, string> bierkiPrezentacjaSymbole = new Dictionary<Bierki, string>
         {
-            { Bierki.Krol, "♚" },
+
             { Bierki.Hetman, "♛"},
             { Bierki.Wieża, "♜"},
             { Bierki.Goniec, "♝"},
             { Bierki.Skoczek, "♞"},
+            { Bierki.Krol, "♚" },
             { Bierki.Pionek, "♟"}
         };
         //czesc dotyczaca wydarzeń w grze
+        /// <summary>
+        /// obecnie wybrana opcja promocji
+        /// </summary>
+        static int zaznaczeniePromocji = 0;
+        /// <summary>
+        /// rysowanie pola do wyboru bierki
+        /// </summary>
+        static void RysujPolaDoPromocjiPionka()
+        {
+            //obliczenie odstepu na osi x
+            int margines = (Console.WindowWidth - (PoleSzerokosc * 4)) / 2;
+            //bierki
+            for (int l = 0; l < 4; l++)
+            {
+                if (zaznaczeniePromocji == l)
+                    Console.BackgroundColor = ConsoleColor.Red;
+                else if (l % 2 == 0)
+                    Console.BackgroundColor = ConsoleColor.Green;
+                else
+                    Console.BackgroundColor = ConsoleColor.White;
+                Console.CursorTop = 2;
+                //wysokosc
+                for (int i = 0; i < PoleWysokosc; i++)
+                {
+                    Console.CursorLeft = margines + (l * PoleSzerokosc);
+                    //szerokosc
+                    for (int j = 0; j < PoleSzerokosc; j++)
+                    {
+                        if (i == PoleWysokosc / 2 && j == PolowaSzerokosci)
+                            switch (l)
+                            {
+                                case 0:
+                                    Console.Write(PrezentacjaBierki(Bierki.Hetman));
+                                    break;
+                                case 1:
+                                    Console.Write(PrezentacjaBierki(Bierki.Goniec));
+                                    break;
+                                case 2:
+                                    Console.Write(PrezentacjaBierki(Bierki.Skoczek));
+                                    break;
+                                case 3:
+                                    Console.Write(PrezentacjaBierki(Bierki.Wieża));
+                                    break;
+                            }
+                        else
+                            Console.Write(" ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            Console.ResetColor();
+        }
         /// <summary>
         /// funkcja do wyboru bierki
         /// </summary>
         /// <returns>zwraca rodzaj bierki do promocji</returns>
         static Bierki PromocjaPionka()
         {
-            return Bierki.Hetman;
+            Console.Clear();
+            RysujPolaDoPromocjiPionka();
+            while (true)
+            {
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.LeftArrow:
+                        zaznaczeniePromocji = (zaznaczeniePromocji < 1) ? 3 : zaznaczeniePromocji - 1;
+                        RysujPolaDoPromocjiPionka();
+                        break;
+                    case ConsoleKey.RightArrow:
+                        zaznaczeniePromocji = (zaznaczeniePromocji > 2) ? 0 : zaznaczeniePromocji + 1;
+                        RysujPolaDoPromocjiPionka();
+                        break;
+                    case ConsoleKey.Enter:
+                        switch (zaznaczeniePromocji)
+                        {
+                            case 0:
+                                return Bierki.Hetman;
+                            case 1:
+                                return Bierki.Goniec;
+                            case 2:
+                                return Bierki.Skoczek;
+                            case 3:
+                                return Bierki.Wieża;
+                        }
+                        break;
+                }
+            }
         }
         /// <summary>
         /// funkcja odpalana na koniec gry

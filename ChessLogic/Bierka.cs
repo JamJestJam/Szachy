@@ -9,11 +9,11 @@ namespace LogikaSzachy
     /// </summary>
     public enum Bierki
     {
-        Krol,
         Hetman,
         Goniec,
         Skoczek,
         Wieża,
+        Krol,
         Pionek
     }
     /// <summary>

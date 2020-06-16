@@ -126,6 +126,8 @@ namespace LogikaSzachy
             this.koniecGry = koniecGry;
 
             Init();
+            promocjaPionka();
+
         }
         /// <summary>
         /// Konstruktor tworzący planszę do gry

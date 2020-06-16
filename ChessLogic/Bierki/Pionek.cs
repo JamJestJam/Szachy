@@ -43,7 +43,6 @@ namespace LogikaSzachy
                     if (PierwszyRuch)
                         SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, 2 * Strona) + Pozycja, mozliweRuchy, false);
 
-
             //zbijac na boki
             //w lewo
             Punkt zbicie = new Punkt(-1, Strona) + Pozycja;

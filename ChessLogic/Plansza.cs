@@ -17,7 +17,17 @@ namespace LogikaSzachy
     /// </summary>
     public class Plansza
     {
+        /// <summary>
+        /// numer ruchu w którym powstał przelom
+        /// </summary>
+        int zmianaStatusu = -1;
+        /// <summary>
+        /// numer ruchu w ktorym zostala stworzona lista ruchow przeciwnika
+        /// </summary>
         int aktualizacjaRuchow = -1;
+        /// <summary>
+        /// Lusta ruchow przeciwnika w turze "aktualizacjaRuchow"
+        /// </summary>
         List<Punkt> listaRuchowPrzeciwnika = new List<Punkt>();
         internal List<Punkt> ListaRuchowPrzeciwnika { get
             {
@@ -180,6 +190,8 @@ namespace LogikaSzachy
         /// <returns>zwraca prawda jezeli udalo sie przemiescic bierke</returns>
         public bool SprobujWykonacRuch(Punkt pozycjaBierki, Punkt pozycjaPrzemieszczenia)
         {
+            if (StanGry != Status.Gra)
+                return false;
             Bierka bierka = BierkiGrajace.Find(x => x.Pozycja == pozycjaBierki);
             if (bierka == null)
                 return false;
@@ -189,6 +201,7 @@ namespace LogikaSzachy
                 ZbijBierke(pozycjaPrzemieszczenia, StronaGrajaca);
                 wykonaneRucy.Add(new Tuple<Punkt, Punkt>(pozycjaBierki, pozycjaPrzemieszczenia));
                 TestRuchow();
+                SprawdzStatus();
                 return true;
             }
             return false;
@@ -338,6 +351,47 @@ namespace LogikaSzachy
         {
             Bierka zbita = bierki.Find(x => x.Pozycja == pozycja && x.Kolor == kolor);
             bierki.Remove(zbita);
+        }
+        /// <summary>
+        /// Sprawdza i w razie potrzeby zmienia status gry
+        /// </summary>
+        private void SprawdzStatus()
+        {
+            var bierkiGrajace = BierkiGrajace;
+            //jezeli na planszy pozostal tylko krole
+            if (bierkiGrajace.Count == 2)
+            {
+                StanGry = Status.Pat;
+                koniecGry(StanGry);
+                return;
+            }
+            //jezeli nie wykonano przelomu od 50 ruchow
+            if(Ruchy - zmianaStatusu > 50)
+            {
+                StanGry = Status.Pat;
+                koniecGry(StanGry);
+                return;
+            }
+            //jezeli jest mozliwosc wykonania ruchu kontynuujemy gre
+            bierkiGrajace.ForEach(x =>
+            {
+                if (x.PobMozliweRuchy.Count > 0)
+                {
+                    StanGry = Status.Gra;
+                    return;
+                }
+            });
+            //jezeli krol jest pod atakiem to mat
+            if(listaRuchowPrzeciwnika.Contains(KrolGrajacy.Pozycja))
+            {
+                StanGry = Status.Mat;
+                koniecGry(StanGry);
+                return;
+            }
+            //jezeli nie to pat
+            StanGry = Status.Pat;
+            koniecGry(StanGry);
+            return;
         }
     }
 }

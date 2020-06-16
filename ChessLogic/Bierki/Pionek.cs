@@ -92,6 +92,7 @@ namespace LogikaSzachy
 
                 if (Pozycja.Y == 7 || Pozycja.Y == 0)
                     plansza.PromocjaPionka(this);
+                plansza.zmianaStatusu = plansza.Ruchy;
                 return true;
             }
             return false;

@@ -21,7 +21,7 @@ namespace LogikaSzachy
         /// <summary>
         /// numer ruchu w którym powstał przelom
         /// </summary>
-        int zmianaStatusu = -1;
+        internal int zmianaStatusu = -1;
         /// <summary>
         /// numer ruchu w ktorym zostala stworzona lista ruchow przeciwnika
         /// </summary>
@@ -41,7 +41,7 @@ namespace LogikaSzachy
                     foreach (Bierka bierka in bierki)
                         foreach (Punkt punkt in bierka.PobMozliweRuchy)
                             wynik.Add(punkt);
-
+                    aktualizacjaRuchow = Ruchy;
                     listaRuchowPrzeciwnika = wynik.Distinct().ToList();
                 }
                 return listaRuchowPrzeciwnika;
@@ -354,9 +354,13 @@ namespace LogikaSzachy
         /// <param name="pozycja">pozycja na ktorej znajduje sie bierka do zbicia</param>
         /// <param name="kolor">kolor bierki do zbicia</param>
         internal void ZbijBierke(Punkt pozycja, Strona kolor)
-        {
+        {   
             Bierka zbita = bierki.Find(x => x.Pozycja == pozycja && x.Kolor == kolor);
-            bierki.Remove(zbita);
+            if (bierki != null)
+            {
+                zmianaStatusu = Ruchy;
+                bierki.Remove(zbita);
+            }
         }
         /// <summary>
         /// Sprawdza i w razie potrzeby zmienia status gry

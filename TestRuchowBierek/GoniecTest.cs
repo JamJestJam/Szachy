@@ -29,7 +29,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Goniec(new Punkt(3, 3), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+     
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
         }
@@ -94,7 +94,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Goniec(new Punkt(3, 3), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+    
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
         }
@@ -126,7 +126,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Goniec(new Punkt(5, 1), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+ 
             //sprawdzanie poprawnosci danych
             if (x <= 1 && y <= 1)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(3, 3), new Punkt(x, y)));
@@ -167,7 +167,6 @@ namespace TestRuchowBierek
             listaBierek.Add(new Goniec(new Punkt(5, 1), Strona.Czarna, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Bia³a, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
 
             //sprawdzanie poprawnosci danych
             if (x < 1 && y < 1)
@@ -200,7 +199,7 @@ namespace TestRuchowBierek
         {
             //tworzenie danych
             List<Bierka> listaBierek = new List<Bierka>();
-            Plansza plansza = new Plansza(null, null, listaBierek);
+            Plansza plansza = new Plansza(null, Wygrana, listaBierek);
             //dodawanie bierek na stol
             listaBierek.Add(new Goniec(new Punkt(3, 3), Strona.Bia³a, plansza));
             listaBierek.Add(new Hetman(new Punkt(4, 0), Strona.Czarna, plansza));

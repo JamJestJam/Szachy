@@ -56,7 +56,8 @@ namespace LogikaSzachy
             //w prawo
             if (!SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(1, 0), mozliweRuchy))
                 if (PierwszyRuch && plansza.StronaGrajaca == Kolor)
-                    SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 0), mozliweRuchy);
+                    if (plansza.bierki.Exists(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja + new Punkt(3, 0) && x.PierwszyRuch))
+                        SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 0), mozliweRuchy);
             //krol moze rowniez wykonac roszady
             //to do
             return mozliweRuchy;

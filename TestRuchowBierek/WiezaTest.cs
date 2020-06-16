@@ -1,5 +1,6 @@
 ﻿using LogikaSzachy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace TestRuchowBierek
@@ -31,7 +32,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Wieza(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+          
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -95,7 +96,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Wieza(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+      
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -127,7 +128,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Wieza(new Punkt(4, 6), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+       
             //sprawdzanie poprawnosci danych
             if (x <= 2 && y == 4)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
@@ -168,7 +169,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Wieza(new Punkt(4, 6), Strona.Czarna, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+    
             //sprawdzanie poprawnosci danych
             if (x < 2 && y == 4)
                 Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
@@ -200,7 +201,7 @@ namespace TestRuchowBierek
         {
             //tworzenie danych
             List<Bierka> listaBierek = new List<Bierka>();
-            Plansza plansza = new Plansza(null, null, listaBierek);
+            Plansza plansza = new Plansza(null, Wygrana, listaBierek);
             //dodawanie bierek na stol
             listaBierek.Add(new Wieza(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Hetman(new Punkt(6, 2), Strona.Czarna, plansza));

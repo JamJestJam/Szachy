@@ -43,7 +43,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Hetman(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+    
             //sprawdzanie poprawnosci danych
             Assert.IsTrue(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -94,7 +94,7 @@ namespace TestRuchowBierek
             listaBierek.Add(new Hetman(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
+     
             //sprawdzanie poprawnosci danych
             Assert.IsFalse(plansza.SprobujWykonacRuch(new Punkt(4, 4), new Punkt(x, y)));
         }
@@ -147,7 +147,6 @@ namespace TestRuchowBierek
 
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
 
             //sprawdzanie poprawnosci danych
             if (x == 4 && y >= 6)
@@ -217,7 +216,6 @@ namespace TestRuchowBierek
 
             listaBierek.Add(new Krol(new Punkt(3, 0), Strona.Biała, plansza));
             listaBierek.Add(new Krol(new Punkt(3, 7), Strona.Czarna, plansza));
-            plansza.TestRuchow();
 
             //sprawdzanie poprawnosci danych
             if (x == 4 && y > 6)
@@ -272,7 +270,7 @@ namespace TestRuchowBierek
         {
             //tworzenie danych
             List<Bierka> listaBierek = new List<Bierka>();
-            Plansza plansza = new Plansza(null, null, listaBierek);
+            Plansza plansza = new Plansza(null, Wygrana, listaBierek);
             //dodawanie bierek na stol
             listaBierek.Add(new Hetman(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Hetman(new Punkt(3, 6), Strona.Czarna, plansza));

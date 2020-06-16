@@ -56,7 +56,7 @@ namespace LogikaSzachy
         /// <summary>
         /// lista ruchow wykonanych na planszy
         /// </summary>
-        private readonly List<Tuple<Punkt, Punkt>> wykonaneRucy = new List<Tuple<Punkt, Punkt>>();
+        readonly List<Tuple<Punkt, Punkt>> wykonaneRucy = new List<Tuple<Punkt, Punkt>>();
         /// <summary>
         /// lista wykonanych ruchow na planszy
         /// </summary>
@@ -365,7 +365,7 @@ namespace LogikaSzachy
         {
             var bierkiGrajace = BierkiGrajace;
             //jezeli na planszy pozostal tylko krole
-            if (bierkiGrajace.Count == 2)
+            if (bierki.Count == 2)
             {
                 StanGry = Status.Pat;
                 koniecGry(StanGry);

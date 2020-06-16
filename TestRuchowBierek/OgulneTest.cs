@@ -6,6 +6,10 @@ namespace TestRuchowBierek
 {
     public partial class TestRuchow
     {
+        void Wygrana(Plansza.Status status)
+        {
+
+        }
         [DataTestMethod]
         [DataRow(5, 5)]
         [DataRow(3, 3)]

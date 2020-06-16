@@ -37,10 +37,11 @@ namespace LogikaSzachy
         {
             List<Punkt> mozliweRuchy = new List<Punkt>();
             //pinek ma możliwość przemieszczenia się o jedno pole na przod
-            if (!SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, Strona) + Pozycja, mozliweRuchy, false))
-                //na dwa pola na przod jezeli jest nie wykonal jeszcze zadnego ruchu
-                if (PierwszyRuch)
-                    SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, 2 * Strona) + Pozycja, mozliweRuchy, false);
+            if(Kolor == plansza.StronaGrajaca)
+                if (!SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, Strona) + Pozycja, mozliweRuchy, false))
+                    //na dwa pola na przod jezeli jest nie wykonal jeszcze zadnego ruchu
+                    if (PierwszyRuch)
+                        SprawdzMozliwoscWykonaniaRuchu(new Punkt(0, 2 * Strona) + Pozycja, mozliweRuchy, false);
 
 
             //zbijac na boki

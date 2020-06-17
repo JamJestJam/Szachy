@@ -145,33 +145,28 @@ namespace LogikaSzachy
         void Init()
         {
             //pionki
-            //for (int i = 0; i < 8; i++)
-            //    bierki.Add(new Pionek(new Punkt(i, 1), Strona.Czarna, this));
-            //for (int i = 0; i < 8; i++)
-            //    bierki.Add(new Pionek(new Punkt(i, 6), Strona.Biała, this));
-            ////figury czarne
-            //bierki.Add(new Wieza(new Punkt(0, 0), Strona.Czarna, this));
-            //bierki.Add(new Wieza(new Punkt(7, 0), Strona.Czarna, this));
-            //bierki.Add(new Goniec(new Punkt(2, 0), Strona.Czarna, this));
-            //bierki.Add(new Goniec(new Punkt(5, 0), Strona.Czarna, this));
-            //bierki.Add(new Skoczek(new Punkt(1, 0), Strona.Czarna, this));
-            //bierki.Add(new Skoczek(new Punkt(6, 0), Strona.Czarna, this));
-            //bierki.Add(new Hetman(new Punkt(3, 0), Strona.Czarna, this));
-            //bierki.Add(new Krol(new Punkt(4, 0), Strona.Czarna, this));
-            ////figury biale
-            //bierki.Add(new Wieza(new Punkt(0, 7), Strona.Biała, this));
-            //bierki.Add(new Wieza(new Punkt(7, 7), Strona.Biała, this));
-            //bierki.Add(new Goniec(new Punkt(2, 7), Strona.Biała, this));
-            //bierki.Add(new Goniec(new Punkt(5, 7), Strona.Biała, this));
-            //bierki.Add(new Skoczek(new Punkt(1, 7), Strona.Biała, this));
-            //bierki.Add(new Skoczek(new Punkt(6, 7), Strona.Biała, this));
-            //bierki.Add(new Hetman(new Punkt(3, 7), Strona.Biała, this));
-            //bierki.Add(new Krol(new Punkt(4, 7), Strona.Biała, this));
-
-            bierki.Add(new Krol(new Punkt(4, 7), Strona.Biała, this));
-            bierki.Add(new Goniec(new Punkt(3, 6), Strona.Biała, this));
+            for (int i = 0; i < 8; i++)
+                bierki.Add(new Pionek(new Punkt(i, 1), Strona.Czarna, this));
+            for (int i = 0; i < 8; i++)
+                bierki.Add(new Pionek(new Punkt(i, 6), Strona.Biała, this));
+            //figury czarne
+            bierki.Add(new Wieza(new Punkt(0, 0), Strona.Czarna, this));
+            bierki.Add(new Wieza(new Punkt(7, 0), Strona.Czarna, this));
+            bierki.Add(new Goniec(new Punkt(2, 0), Strona.Czarna, this));
+            bierki.Add(new Goniec(new Punkt(5, 0), Strona.Czarna, this));
+            bierki.Add(new Skoczek(new Punkt(1, 0), Strona.Czarna, this));
+            bierki.Add(new Skoczek(new Punkt(6, 0), Strona.Czarna, this));
+            bierki.Add(new Hetman(new Punkt(3, 0), Strona.Czarna, this));
             bierki.Add(new Krol(new Punkt(4, 0), Strona.Czarna, this));
-            bierki.Add(new Hetman(new Punkt(1, 4), Strona.Czarna, this));
+            //figury biale
+            bierki.Add(new Wieza(new Punkt(0, 7), Strona.Biała, this));
+            bierki.Add(new Wieza(new Punkt(7, 7), Strona.Biała, this));
+            bierki.Add(new Goniec(new Punkt(2, 7), Strona.Biała, this));
+            bierki.Add(new Goniec(new Punkt(5, 7), Strona.Biała, this));
+            bierki.Add(new Skoczek(new Punkt(1, 7), Strona.Biała, this));
+            bierki.Add(new Skoczek(new Punkt(6, 7), Strona.Biała, this));
+            bierki.Add(new Hetman(new Punkt(3, 7), Strona.Biała, this));
+            bierki.Add(new Krol(new Punkt(4, 7), Strona.Biała, this));
 
             TestRuchow();
         }

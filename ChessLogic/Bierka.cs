@@ -115,7 +115,7 @@ namespace LogikaSzachy
                 if (plansza.BierkaNaPozycji(przemieszczenie, out Bierka bierka))
                 {
                     //jezeli kolory sa rozne dodaj mozliwosc zbicia
-                    if (bierka.Kolor != Kolor && zbicie)
+                    if ((bierka.Kolor != Kolor && zbicie) || Kolor != plansza.StronaGrajaca)
                         ruchy.Add(przemieszczenie);
                     return true;
                 }

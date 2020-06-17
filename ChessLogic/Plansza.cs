@@ -41,7 +41,7 @@ namespace LogikaSzachy
                         foreach (Punkt punkt in bierka.PobMozliweRuchy)
                             wynik.Add(punkt);
                     aktualizacjaRuchow = Ruchy;
-                    listaRuchowPrzeciwnika = wynik.Distinct().ToList();
+                    listaRuchowPrzeciwnika = wynik.ToList();
                 }
                 return listaRuchowPrzeciwnika;
             }
@@ -438,10 +438,12 @@ namespace LogikaSzachy
         internal Plansza Kopiuj(Func<Bierki> promocjaPionka, Action<Status> koniecGry)
         {
             List<Bierka> listaBierek = new List<Bierka>();
-            Plansza tmp = new Plansza(promocjaPionka, koniecGry, listaBierek);
-            tmp.StronaGrajaca = StronaGrajaca;
-            
-            foreach(var punkt in wykonaneRucy)
+            Plansza tmp = new Plansza(promocjaPionka, koniecGry, listaBierek)
+            {
+                StronaGrajaca = StronaGrajaca
+            };
+
+            foreach (var punkt in wykonaneRucy)
             {
                 tmp.wykonaneRucy.Add(new Tuple<Punkt, Punkt>(punkt.Item1, punkt.Item2));
             }

@@ -63,6 +63,8 @@ namespace LogikaSzachy
                     if (bierka.Nazwa == Bierki.Pionek)
                         if (plansza.WykonaneRuchy.Last().Item2 == zbicie && plansza.WykonaneRuchy.Last().Item1 == new Punkt(1, 2 * Strona) + Pozycja)
                             mozliweRuchy.Add(new Punkt(1, Strona) + Pozycja);
+            if (plansza.StronaGrajaca != Kolor)
+                mozliweRuchy.Add(new Punkt(1, Strona) + Pozycja);
             //lewo
             zbicie = new Punkt(-1, 0) + Pozycja;
             if (plansza.BierkaNaPozycji(zbicie, out bierka))
@@ -70,7 +72,8 @@ namespace LogikaSzachy
                     if (bierka.Nazwa == Bierki.Pionek)
                         if (plansza.WykonaneRuchy.Last().Item2 == zbicie && plansza.WykonaneRuchy.Last().Item1 == new Punkt(-1, 2 * Strona) + Pozycja)               
                             mozliweRuchy.Add(new Punkt(-1, Strona) + Pozycja);
-
+            if (plansza.StronaGrajaca != Kolor)
+                mozliweRuchy.Add(new Punkt(-1, Strona) + Pozycja);
 
             return mozliweRuchy;
         }

@@ -370,6 +370,7 @@ namespace Widok
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
             }
+            Console.Clear();
         }
         /// <summary>
         /// plansza na której się gra

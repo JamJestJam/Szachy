@@ -119,7 +119,7 @@ namespace TestRuchowBierek
         {
             //tworzenie danych
             List<Bierka> listaBierek = new List<Bierka>();
-            Plansza plansza = new Plansza(null, null, listaBierek);
+            Plansza plansza = new Plansza(null, Wygrana, listaBierek);
             //dodawanie bierek na stol
             listaBierek.Add(new Wieza(new Punkt(4, 4), Strona.Biała, plansza));
             listaBierek.Add(new Wieza(new Punkt(2, 4), Strona.Biała, plansza));

@@ -49,15 +49,17 @@ namespace LogikaSzachy
         /// <summary>
         /// plansza rodzica
         /// </summary>
-        Plansza plansza;
+        readonly Plansza plansza;
+
         /// <summary>
         /// strona po ktorej jest toczona gra
         /// </summary>
-        Strona strona;
+        readonly Strona strona;
+
         /// <summary>
         /// glebokosc analizy
         /// </summary>
-        int glebokoscAnalizy;
+        readonly int glebokoscAnalizy;
 
         /// <summary>
         /// lista dzieci w analizie
@@ -133,7 +135,8 @@ namespace LogikaSzachy
                         break;
                 }
             }
-            Bierki Promocja()
+
+            static Bierki Promocja()
             {
                 return Bierki.Hetman;
             }

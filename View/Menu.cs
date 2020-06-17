@@ -203,13 +203,13 @@ namespace Widok
                         switch (wybranaStart)
                         {
                             case 0:
-                                MainGry(true, false);
+                                MainGry(Strona.Biała, false);
                                 break;
                             case 1:
-                                MainGry();
+                                MainGry(Strona.Czarna);
                                 break;
                             case 2:
-                                MainGry(false);
+                                MainGry(Strona.Biała);
                                 break;
                         }
                         break;
@@ -283,17 +283,23 @@ namespace Widok
         /// <summary>
         /// sterowanie grą
         /// </summary>
-        static void MainGry(bool side = true, bool bot = true)
+        static void MainGry(Strona side, bool bot = true)
         {
             //inicjalizuje plansze
             plansza = new Plansza(PromocjaPionka, KoniecGry);
             gra = true;
+            KomputerowyPrzeciwnik komputerowyPrzeciwnik = new KomputerowyPrzeciwnik(plansza, 1);
             //rysowanie
             Console.Clear();
             RysujPlansze();
             //działanie
             while (gra)
             {
+                if (bot && side == plansza.StronaGrajaca)
+                {
+                    komputerowyPrzeciwnik.WykonajRuch();
+                    RysujPlansze();
+                }
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -343,7 +349,9 @@ namespace Widok
                             zaznaczenie = null;
                             mozliweRuchy = new List<Punkt>();
                             if (gra)
+                            {
                                 RysujPlansze();
+                            }
                         }
                         else if (plansza.BierkaNaPozycji(kursorPozycja, out Bierka bierka))
                         {

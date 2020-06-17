@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace LogikaSzachy
 {
@@ -85,11 +84,11 @@ namespace LogikaSzachy
         /// <summary>
         /// lista bialych bierek
         /// </summary>
-        List<Bierka> BierkiBiale { get => bierki.FindAll(x => x.Kolor == Strona.Biała); }
+        internal List<Bierka> BierkiBiale { get => bierki.FindAll(x => x.Kolor == Strona.Biała); }
         /// <summary>
         /// lista czarnych bierek
         /// </summary>
-        List<Bierka> BierkiCzarne { get => bierki.FindAll(x => x.Kolor == Strona.Czarna); }
+        internal List<Bierka> BierkiCzarne { get => bierki.FindAll(x => x.Kolor == Strona.Czarna); }
         /// <summary>
         /// bialy krol
         /// </summary>
@@ -114,7 +113,7 @@ namespace LogikaSzachy
         /// <summary>
         /// lista bierek aktualnie grajacych
         /// </summary>
-        List<Bierka> BierkiGrajace { get => (StronaGrajaca == Strona.Biała) ? BierkiBiale : BierkiCzarne; }
+        internal List<Bierka> BierkiGrajace { get => (StronaGrajaca == Strona.Biała) ? BierkiBiale : BierkiCzarne; }
         /// <summary>
         /// Konstruktor tworzący planszę do gry
         /// </summary>
@@ -126,8 +125,6 @@ namespace LogikaSzachy
             this.koniecGry = koniecGry;
 
             Init();
-            promocjaPionka();
-
         }
         /// <summary>
         /// Konstruktor tworzący planszę do gry
@@ -354,9 +351,9 @@ namespace LogikaSzachy
         /// <param name="pozycja">pozycja na ktorej znajduje sie bierka do zbicia</param>
         /// <param name="kolor">kolor bierki do zbicia</param>
         internal void ZbijBierke(Punkt pozycja, Strona kolor)
-        {   
+        {
             Bierka zbita = bierki.Find(x => x.Pozycja == pozycja && x.Kolor == kolor);
-            if (bierki != null)
+            if (zbita != null)
             {
                 zmianaStatusu = Ruchy;
                 bierki.Remove(zbita);
@@ -383,7 +380,7 @@ namespace LogikaSzachy
                 return;
             }
             //jezeli jest mozliwosc wykonania ruchu kontynuujemy gre
-            foreach(var x in bierkiGrajace)
+            foreach (var x in bierkiGrajace)
             {
                 if (x.PobMozliweRuchy.Count > 0)
                 {
@@ -432,6 +429,26 @@ namespace LogikaSzachy
                 default:
                     throw new ArgumentException("Niemozliwa promocja bierki");
             }
+        }
+        /// <summary>
+        /// Zwraca kopie planszy
+        /// </summary>
+        internal Plansza Kopiuj(Func<Bierki> promocjaPionka, Action<Status> koniecGry)
+        {
+            List<Bierka> listaBierek = new List<Bierka>();
+            Plansza tmp = new Plansza(promocjaPionka, koniecGry, listaBierek);
+            tmp.StronaGrajaca = StronaGrajaca;
+            
+            foreach(var punkt in wykonaneRucy)
+            {
+                tmp.wykonaneRucy.Add(new Tuple<Punkt, Punkt>(punkt.Item1, punkt.Item2));
+            }
+            foreach(Bierka bierka in bierki)
+            {
+                listaBierek.Add(bierka.Kopiuj(tmp));
+            }
+
+            return tmp;
         }
     }
 }

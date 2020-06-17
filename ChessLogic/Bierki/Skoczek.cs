@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace LogikaSzachy
 {
@@ -49,6 +50,32 @@ namespace LogikaSzachy
             SprawdzMozliwoscWykonaniaRuchu(Pozycja + new Punkt(2, 1), mozliweRuchy);
 
             return mozliweRuchy;
+        }
+        /// <summary>
+        /// Tworzy kopie Hetmana
+        /// </summary>
+        internal override Bierka Kopiuj(Plansza plansza)
+        {
+            return new Skoczek(Pozycja, Kolor, plansza, PierwszyRuch, PobMozliweRuchy.ToList(), Kolejka);
+        }
+        /// <summary>
+        /// konstruktor do kopiowania
+        /// </summary>
+        /// <param name="pozycja">Pozycja kopiowanej bierki</param>
+        /// <param name="kolor">Kolor bierki</param>
+        /// <param name="plansza">nowa plansza</param>
+        /// <param name="pierwszyRuch">stan zmiennej pierwszy ruch</param>
+        /// <param name="policzoneRuchy">policzone ruchy bierki</param>
+        Skoczek(Punkt pozycja, Strona kolor, Plansza plansza, bool pierwszyRuch, List<Punkt> policzoneRuchy, int kolejka)
+        {
+            this.Nazwa = Bierki.Pionek;
+            this.Pozycja = pozycja;
+            this.Kolor = kolor;
+            this.plansza = plansza;
+            this.PierwszyRuch = pierwszyRuch;
+            this.WartoscPunktowa = 1;
+            this.policzoneRuchy = policzoneRuchy;
+            this.Kolejka = kolejka;
         }
     }
 }

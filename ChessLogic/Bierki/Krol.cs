@@ -22,7 +22,7 @@ namespace LogikaSzachy
             this.Kolor = kolor;
             this.plansza = plansza;
             this.PierwszyRuch = pierwszyRuch;
-            this.WartoscPunktowa = int.MaxValue;
+            this.WartoscPunktowa = 0;
         }
         /// <summary>
         /// tworzenie listy możliwych do wykonania ruchow przez krola
@@ -106,6 +106,32 @@ namespace LogikaSzachy
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// Tworzy kopie Hetmana
+        /// </summary>
+        internal override Bierka Kopiuj(Plansza plansza)
+        {
+            return new Krol(Pozycja, Kolor, plansza, PierwszyRuch, PobMozliweRuchy.ToList(), Kolejka);
+        }
+        /// <summary>
+        /// konstruktor do kopiowania
+        /// </summary>
+        /// <param name="pozycja">Pozycja kopiowanej bierki</param>
+        /// <param name="kolor">Kolor bierki</param>
+        /// <param name="plansza">nowa plansza</param>
+        /// <param name="pierwszyRuch">stan zmiennej pierwszy ruch</param>
+        /// <param name="policzoneRuchy">policzone ruchy bierki</param>
+        Krol(Punkt pozycja, Strona kolor, Plansza plansza, bool pierwszyRuch, List<Punkt> policzoneRuchy, int kolejka)
+        {
+            this.Nazwa = Bierki.Krol;
+            this.Pozycja = pozycja;
+            this.Kolor = kolor;
+            this.plansza = plansza;
+            this.PierwszyRuch = pierwszyRuch;
+            this.WartoscPunktowa = 0;
+            this.policzoneRuchy = policzoneRuchy;
+            this.Kolejka = kolejka;
         }
     }
 }

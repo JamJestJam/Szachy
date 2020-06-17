@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LogikaSzachy
 {
@@ -61,6 +63,32 @@ namespace LogikaSzachy
             }
 
             return mozliweRuchy;
+        }
+        /// <summary>
+        /// Tworzy kopie Gonca
+        /// </summary>
+        internal override Bierka Kopiuj(Plansza plansza)
+        {
+            return new Goniec(Pozycja, Kolor, plansza, PierwszyRuch, PobMozliweRuchy.ToList(), Kolejka);
+        }
+        /// <summary>
+        /// konstruktor do kopiowania
+        /// </summary>
+        /// <param name="pozycja">Pozycja kopiowanej bierki</param>
+        /// <param name="kolor">Kolor bierki</param>
+        /// <param name="plansza">nowa plansza</param>
+        /// <param name="pierwszyRuch">stan zmiennej pierwszy ruch</param>
+        /// <param name="policzoneRuchy">policzone ruchy bierki</param>
+        Goniec(Punkt pozycja, Strona kolor, Plansza plansza, bool pierwszyRuch, List<Punkt> policzoneRuchy, int kolejka)
+        {
+            this.Nazwa = Bierki.Goniec;
+            this.Pozycja = pozycja;
+            this.Kolor = kolor;
+            this.plansza = plansza;
+            this.PierwszyRuch = pierwszyRuch;
+            this.WartoscPunktowa = 3;
+            this.policzoneRuchy = policzoneRuchy;
+            this.Kolejka = kolejka;
         }
     }
 }

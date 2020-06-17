@@ -143,9 +143,10 @@ namespace LogikaSzachy
         /// <summary>
         /// ograniczenia w poruszaniu sie bierki
         /// </summary>
-        internal List<Punkt> Ograniczenia
-        {
-            get; set;
-        }
+        internal List<Punkt> Ograniczenia;
+        /// <summary>
+        /// Tworzy kopie bierki
+        /// </summary>
+        internal abstract Bierka Kopiuj(Plansza plansza);
     }
 }

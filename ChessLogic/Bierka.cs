@@ -143,7 +143,7 @@ namespace LogikaSzachy
         /// <summary>
         /// ograniczenia w poruszaniu sie bierki
         /// </summary>
-        internal List<Punkt> Ograniczenia;
+        internal List<Punkt> Ograniczenia = new List<Punkt>();
         /// <summary>
         /// Tworzy kopie bierki
         /// </summary>

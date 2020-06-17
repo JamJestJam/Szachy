@@ -332,6 +332,10 @@ namespace LogikaSzachy
 
                     if (obronca.Count == 0)//jezeli nie ma obroncow
                     {
+                        var KrolGrajacy = this.KrolGrajacy;
+                        KrolGrajacy.NumerOgraniczenia = Ruchy;//ustaw ograniczenie na ta ture
+                        KrolGrajacy.Ograniczenia.Add(KrolGrajacy.Pozycja + (KrolGrajacy.Pozycja - linia.First()));//ustaw ograniczenie do tej lini
+
                         if (zaslonieceiSzacha == null)//jezeli juz nie było zasloniecia szacha
                             zaslonieceiSzacha = linia;//ustaw linie jako jedyna mozliwosc do zasloniecia
                         else//jezeli podwujny szach

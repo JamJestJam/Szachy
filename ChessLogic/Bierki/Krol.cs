@@ -74,7 +74,7 @@ namespace LogikaSzachy
                     policzoneRuchy = MozliweRuchy();
                     if (Kolor == plansza.StronaGrajaca)
                     {
-                        policzoneRuchy = policzoneRuchy.Except(plansza.ListaRuchowPrzeciwnika).ToList();
+                        policzoneRuchy = policzoneRuchy.Except(plansza.ListaRuchowPrzeciwnika).Except(Ograniczenia).ToList();
 
                         Bierka prawaWieza = plansza.bierki.Find(x => x.Nazwa == Bierki.Wieża && x.Pozycja == Pozycja + new Punkt(3, 0) && x.PierwszyRuch);
                         if (!policzoneRuchy.Exists(x => x == Pozycja + new Punkt(1, 0)))
